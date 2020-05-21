@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Give-N</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <!-- <link href="../css/jquery.mobile-1.4.5.min.css" rel="stylesheet" /> -->
+  <link href="../css/site.css" rel="stylesheet" />
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
+  <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+  <script type="text/javascript" src="../js/functions.js"></script>
+  <script type="text/javascript" src="../js/Trial.js"></script>
+</head>
+
+<body>
+  <!--<h1>Welcome to Give N</h1>-->
+
+  <div data-role="page" data-cache="never" id="trialLogicPage">
+    <img src="../res/logo_give_n.png" alt="Give N" title="Give-N" height = "250"/>
+    <div data-role="header">
+      <h1>Give-N trial logic</h1>
+    </div>
+
+    <div role="main" class="ui-content">
+      <form action="partials/default.html"
+      onsubmit="if(document.getElementById('agree').checked){
+        return giveN.storeResearcherInfo(this.researcherName.value, this.researcherInstitution.value, 
+          this.researcherEmail.value, 
+          this.zip.value);
+      } else {
+        alert('You cannot proceed unless you agree to the terms and conditions of use.');
+        return false;
+      }">
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="name">Researcher's name: </label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="researcherName" name="researcherName"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="name">Researcher's institution: </label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="researcherInstitution" name="researcherInstitution" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="name">Researcher's email address: </label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="researcherEmail" name="researcherEmail" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="name">ZIP/Postal-code of current location: </label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="zip" name="zip" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            Please email any support questions to <a href="mailto: ladlab@ucsd.edu" target="_blank">ladlab@ucsd.edu</a>
+          </div>
+
+        </div>
+
+        <p>Thank you for using the "Give-a-Number" app. This app deploys two standard methods for assessing children's understanding of number words drawn from the scientific literature. It estimates the numbers a child understands (between 1 and 10, or
+          higher). The app provides trial-by-trial instructions for testing, generates an estimate of the child's knowledge at the end of the test, and emails results to the user. 
+<!-- commented out until we have webpage for Give-N literature.
+          Details regarding this test and its use in the scientific literature can
+          be found <a href="#" onclick="try { cordova.InAppBrowser.open('http://ladlab.ucsd.edu/given', '_system', 'location=yes,closebuttoncaption=Close'); } catch (x) { alert(x);}">HERE</a>. -->
+        </p>
+        <p>
+          Confidentiality: All data collected used this app will be stored on secure servers housed by the University of California, San Diego (UCSD). No identifying information regarding individual children will be stored. Note that anonymized recorded behaviors
+          will be accessible to researchers at UCSD and may be shared with the wider research community.
+        </p>
+
+
+        <label>I agree to the above terms of use<input type="checkbox" id='agree'></label>
+        <br/>
+
+        <input type="submit" value="Next" />
+
+      </form>
+    </div>
+
+    <div data-role="footer" id="footer">
+
+    </div>
+  </div>
+</body>
+
+</html>

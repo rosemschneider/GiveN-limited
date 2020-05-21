@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Give-N App</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <!-- <link href="../css/jquery.mobile-1.4.5.min.css" rel="stylesheet" /> -->
+  <link href="../css/site.css" rel="stylesheet" />
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
+  <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+  <script type="text/javascript" src="../js/functions.js"></script>
+  <script type="text/javascript" src="../js/Trial.js"></script>
+</head>
+
+<body>
+
+    <div data-role="page" data-cache="never" id="doTestPage">
+        <div data-role="header">
+            <h1>Give-N Instructions</h1>
+       
+            Give the child counting objects and plate, then say:
+            <p class="speech">
+                "Can you put <span class="num">{0}</span> on the plate?<br />
+                Put <span class="num">{0}</span> on the plate, and tell me when you’re all done." (repeat if child does not respond).
+            </p>
+            <p>
+                When child tells you that they are done, say:
+            </p>
+            <p class="speech">
+                "Is that <span class="num">{0}</span>?<br />
+                Can you count and make sure?<br />
+                Is that <span class="num">{0}</span>?"<br />
+            </p>
+            <h2>Trial <span id="trialNum">{0}</span>:</h2>
+
+        </div>
+        <form id = "userSelection" action="./trialLogic.html" target = "_blank">
+          <!--Put your inputs here -->
+            <input type="button" value="Beta only: Trial logic & issue reporting" name="trialLogic"onclick="showTrialLogic()" />
+        </form>
+      <script>
+        form=document.getElementById("userSelection");
+          function showTrialLogic() {
+                form.action="./trialLogic.html";
+                form.submit();
+        }
+       
+      </script>
+
+        <div role="main" class="ui-content">
+
+            <form action="./howHighCount.html" name="form1" id="form1">
+
+                <div class="req">
+                    <div id="subjectRequest">Please ask your test subject for <span class="num">{0}</span> items</div>
+                    <div id="subjectResponse">
+                        Initial amount given
+                        <input type="number" value="" name="subjectResponseValue1" id="subjectResponseValue1" size="5">
+                        Final amount given (if the child changes their response after counting)
+                        <input type="number" value="" name="subjectResponseValue2" id="subjectResponseValue2" size="5">
+
+                        <input type="button" value="Next" onclick="next()"/>
+                    </div>
+                </div>
+                <br />
+
+                <br />
+                <br />
+                <input type="button" value="Stop test" onclick="giveN.abortTest();" />
+                If the test is stopped, partial data can be emailed, and will be marked as such.
+
+                <br>
+
+                <table border="1" cellpadding="5" cellspacing="4" id="dataTable">
+                    <thead>
+                        <tr>
+                            <td>Trial</td>
+                            <td>Requested</td>
+                            <td>Given Initially</td>
+                            <td>Given Finally</td>
+                        </tr>
+                    </thead>
+                </table>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

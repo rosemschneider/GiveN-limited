@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div data-role="page" data-cache="never" id="highestCountPage">
+    <div data-role="header">
+      <h1>Give-N</h1>
+
+      <h2>How High Can They Count?</h2>
+
+    </div>
+
+    <form action="./verify.html" id="form1">
+
+      <p>Ask the child, "Can you count as high as you can? Let's start counting with one...".</p>
+      <p>If they stop, ask, "Do you know what comes next?" Do this only once.</p>  
+      <p>When they cannot continue counting, enter the highest number they reached.</p>
+
+      <input type="number" id="howHigh" name="howHigh" />
+
+      <input type="button" value="Next" id = "endTask" onclick="giveN.saveHowHigh(); $('#form1').submit();" />
+
+      <script>
+          var input = document.getElementById("howHigh");
+          input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("endTask").click();
+          }
+        });
+      </script>
+
+    </form>
+    <div data-role="footer" id="footer">
+
+    </div>
+  </div>
+</body>
+
+</html>

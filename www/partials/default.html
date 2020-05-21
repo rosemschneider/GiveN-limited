@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Give-N</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <link href="../css/index.css" rel="stylesheet" />
+  <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="../js/jquery.mobile-1.4.5.min.js"></script>
+  <script type="text/javascript" src="../js/functions.js"></script>
+  <script type="text/javascript" src="../js/Trial.js"></script>
+
+</head>
+
+<body>
+
+  <div data-role="page" data-cache="never" id="defaultPage">
+    <div data-role="header">
+      <h1>Give-N</h1>
+      <h2>Start a test</h2>
+    </div>
+
+    <div role="main" class="ui-content">
+      <a href="./settings.html" data-role="button" data-icon="gear" style="float:right;" data-mini="true">Settings</a>
+      <div style="clear: both"></div>
+
+      <form action="./doTest.html" onsubmit="return giveN.onSetupSubmit(this)" name="setupForm">
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="name">Subject ID (or child initials): </label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="subjectId" />
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="name">Sex: </label>
+          </div>
+          <div class="col-md-9">
+            <select name="gender" id="gender">
+              <option value="F">Female</option>
+              <option value="M">Male</option>
+              <option value="O">Prefer not to respond</option>
+            </select>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="dob">Date of birth:</label>
+          </div>
+          <div class="col-md-9">
+            <input type="date" id="dob" />
+            <!--should show date picker in ios-->
+          </div>
+        </div>
+
+
+        <!-- will send date of test info to server too-->
+
+        <div class="row">
+          <div class="col-md-3">
+            <label>Give-N Type: </label>
+            <b>Titrated Give-N</b> tests children using a stair-case procedure. E.g., if a child correctly gives 3, the next number tested is 4; if not, the next number is 2. Usually faster, but may test individual numbers fewer times.
+            <p>
+            <b>Non-titrated Give-N</b> tests a set of numbers (which can be specified below) three times each. Generally slower, but tests individual numbers multiple times.
+            </p>
+          </div>
+          <div class="col-md-9">
+            <fieldset data-role="controlgroup">
+              <label> 
+                <input type="radio" name="trialType" id="trialType-1" value="titrated" checked="checked"  />
+                Titrated 
+              </label>
+              <label>
+                <input type="radio" name="trialType" id="trialType-2" value="nontitrated" />
+                Non-titrated
+              </label>
+              <div id="nontitratedRange" data-role="collapsible">
+                <h2>Non-titrated number range:</h2>
+
+                <label><input type="checkbox" name="nontitratedRange1" checked="checked" data-val="1" />1</label><br />
+                <label><input type="checkbox" name="nontitratedRange2" checked="checked" data-val="2" />2</label><br />
+                <label><input type="checkbox" name="nontitratedRange3" checked="checked" data-val="3" />3</label><br />
+                <label><input type="checkbox" name="nontitratedRange4" checked="checked" data-val="4" />4</label><br />
+                <label><input type="checkbox" name="nontitratedRange5" checked="checked" data-val="5" />5</label><br />
+                <label><input type="checkbox" name="nontitratedRange6" data-val="6" />6</label><br />
+                <label><input type="checkbox" name="nontitratedRange7" data-val="7" />7</label><br />
+                <label><input type="checkbox" name="nontitratedRange8" checked="checked" data-val="8" />8</label><br />
+                <label><input type="checkbox" name="nontitratedRange9" data-val="9" />9</label><br />
+                <label><input type="checkbox" name="nontitratedRange10" checked="checked" data-val="10" />10</label><br />
+
+                <!--
+                                <select name="nontitratedRange" class="nontitratedRange" multiple="multiple" size="6">
+                                    <option selected="selected">1</option>
+                                    <option selected="selected">2</option>
+                                    <option selected="selected">3</option>
+                                    <option selected="selected">4</option>
+                                    <option selected="selected">5</option>
+                                    <option >6</option>
+                                    <option >7</option>
+                                    <option selected="selected">8</option>
+                                    <option >9</option>
+                                    <option selected="selected">10</option>
+                                </select>
+                                -->
+                <!--
+                    <input class="nontitratedRange" type="text" id="nontitratedRangeLow" name="nontitratedRangeLow" size="3" value="1" />
+                                -
+				<input class="nontitratedRange" type="text" id="nontitratedRangeHigh" name="nontitratedRangeHigh" size="3" value="10" />
+                                -->
+              </div>
+            </fieldset>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="languagesSpoken">Languages spoken by test subject:</label>
+          </div>
+          <div class="col-md-9">
+
+            <div id="languagesSpoken" data-role="collapsible">
+              <h2>Touch to choose: </h2>
+
+              <label><input type="checkbox" name="languagesSpoken1" checked="checked" data-val="English"/>English</label>
+              <label><input type="checkbox" name="languagesSpoken2"  data-val="French" />French</label>
+              <label><input type="checkbox" name="languagesSpoken3"  data-val="Spanish"/>Spanish</label>
+              <label><input type="checkbox" name="languagesSpoken4" data-val="Mandarin" />Mandarin</label>
+              <label><input type="checkbox" name="languagesSpoken5"  data-val="Japanese"/>Japanese</label>
+              <label><input type="checkbox" name="languagesSpoken6"  data-val="German"/>German</label>
+              <label><input type="checkbox" name="languagesSpoken7"  data-val="Italian"/>Italian</label>
+
+              <label>Other: </label><input id="otherLanguageSpoken" name="otherLanguageSpoken" type="text" />
+            </div>
+            <!--
+                            <select multiple="multiple" name="languagesSpoken" size="4" onchange="if(this.value=='Other') document.getElementById('otherLanguageSpoken').style.display='block';">
+                                <option value="English" selected>English</option>
+                                <option>French</option>
+                                <option>Spanish</option>
+                                <option>Mandarin</option>
+                                <option>Japanese</option>
+                                <option>German</option>
+                                <option>Italian</option>
+                                <option value="Other">Other (please enter)</option>
+                            </select>
+                            <input id="otherLanguageSpoken" name="otherLanguageSpoken" style="display: none;" type="text" />
+                            -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="languageOfSession">Language used for this session:</label>
+          </div>
+          <div class="col-md-9">
+            <div id="languageOfSession" data-role="collapsible">
+              <h2>Touch to choose: </h2>
+
+              <label><input type="radio" name="languageOfSession" checked="checked" data-val="English" />English</label>
+              <label><input type="radio" name="languageOfSession" data-val="French" />French</label>
+              <label><input type="radio" name="languageOfSession" data-val="Spanish" />Spanish</label>
+              <label><input type="radio" name="languageOfSession" data-val="Mandarin" />Mandarin</label>
+              <label><input type="radio" name="languageOfSession" data-val="Japanese" />Japanese</label>
+              <label><input type="radio" name="languageOfSession" data-val="German" />German</label>
+              <label><input type="radio" name="languageOfSession" data-val="Italian" />Italian</label>
+              <label><input type="radio" name="languageOfSession" id="languageOfSessionOther" data-val="Other" />Other</label>
+              <label>Other: </label><input id="otherLanguageOfSession" name="otherLanguageOfSession" type="text" onfocus="$('#languageOfSessionOther').prop('checked', true).change(); $('input[name=languageOfSession]').checkboxradio('refresh')" />
+            </div>
+            <!--
+                         <select size="4" name="languageOfSession" onchange="if(this.value=='Other') document.getElementById('otherLanguageOfSession').style.display='block';">
+                            <option selected="selected">English</option>
+                            <option>French</option>
+                            <option>Spanish</option>
+                            <option>Mandarin</option>
+                            <option>Japanese</option>
+                            <option>German</option>
+                            <option>Italian</option>
+                            <option value="Other">Other (please enter)</option>
+                        </select>
+                        <input id="otherLanguageOfSession" name="otherLanguageOfSession" style="display: none;" type="text" />
+                           -->
+
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="numberOfObjects">Number of counting objects available:<br /><i>Enter the total number of objects presented to the child on each trial</i></label>
+          </div>
+          <div class="col-md-9">
+            <input type="number" id="numberOfObjects" name="numberOfObjects" value="8" />
+          </div>
+        </div>
+
+        <div class="row" id="startNumberRow">
+          <div class="col-md-3">
+            <label for="startNumber">Start number:<br /><i>Enter the first number to be tested</i></label>
+          </div>
+          <div class="col-md-9">
+            <input type="number" id="startNumber" name="startNumber" value="3">
+          </div>
+        </div>
+
+        <div class="row" id="highestNumberRow">
+          <div class="col-md-3">
+            <label for="highestNumber">Highest test number:<br /><i>Enter the highest number to be tested</i></label>
+          </div>
+          <div class="col-md-9">
+            <input type="number" id="highestNumber" name="highestNumber" value="8">
+
+          </div>
+
+
+
+        </div>
+
+        <br />
+        <div id="customFields"></div>
+        <!--
+<br/>
+<div class="row">
+	<div class="col-md-3">
+		<label for="dob">Live trial*:</label>
+		</div>
+	<div class="col-md-9">
+ <input type="checkbox" name="live" value="live" checked="checked"/>
+ 	</div>
+</div>
+
+
+<p>*Anonymous trial data is sent to our server for later analysis.  Please do not check this for test runs.</p>
+-->
+
+        <br />
+        <br />
+        <input type="button" value="Change Default Settings" onclick="jQuery.mobile.changePage('Settings.html')" />
+        <input type="submit" value="Start test" />
+
+      </form>
+    </div>
+
+
+    <div data-role="footer" id="footer">
+
+    </div>
+  </div>
+</body>
+
+</html>

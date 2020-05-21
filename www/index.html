@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Give-N</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+  <link href="css/site.css" rel="stylesheet" />
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+  <script type="text/javascript" src="js/functions.js"></script>
+  <script type="text/javascript" src="js/Trial.js"></script>
+</head>
+
+<body>
+
+  <div data-role = "page" data-cache = "never" id = "landingPage">
+    <img src="res/logo_give_n.png" alt="Give N" title="Give-N" height = "250" />
+    <div data-role="header">
+      <h1>Give-N app</h1>
+    </div>
+
+      <center>
+        <p>Welcome to the UCSD Language and Development Lab Give-N app</p>
+
+         <p>Please indicate whether you are a parent or a researcher</p>
+        <form id="userSelection" action="">
+          <!--Put your inputs here -->
+            <input type="button" value="Parent" name="parent" onclick="showParent()" />
+            <input type="button" value="Researcher" name="researcher" onclick="showResearcher()" />
+        </form>
+      <script>
+        form=document.getElementById("userSelection");
+          function showParent() {
+                form.action="parentLanding.html";
+                form.submit();
+        }
+        function showResearcher() {
+                form.action="researcherLanding.html";
+                form.submit();
+        }
+       
+      </script>
+
+       <!--  <input type="radio" id = "parent" value="Parent" />
+        <input type="radio" id = "researcher" value="Researcher">
+        <input type = "submit" id = "Next"> -->
+      </center>
+
+      <!-- <form action="partials/researcherLanding.html"
+      onsubmit="if(document.getElementById('agree').){
+        return giveN.storeResearcherInfo(this.researcherName.value, this.researcherEmail.value, this.zip.value);
+      } else {
+        alert('You cannot proceed unless you agree to the terms and conditions of use.');
+        return false;
+      }"> -->
+    </div>
+  </div>
+
+
+
+  <!--<h1>Welcome to Give N</h1>-->
+
+  <!-- <div data-role="page" data-cache="never" id="welcomePage">
+    <img src="res/titleimg.jpg" alt="Give N" title="Give N" />
+    <div data-role="header">
+      <h1>Give N</h1>
+    </div>
+
+    <div role="main" class="ui-content">
+      <form action="partials/default.html"
+      onsubmit="if(document.getElementById('agree').checked){
+        return giveN.storeResearcherInfo(this.researcherName.value, this.researcherEmail.value, this.zip.value);
+      } else {
+        alert('You cannot proceed unless you agree to the terms and conditions of use.');
+        return false;
+      }">
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="name">Researcher's name: </label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="researcherName" name="researcherName" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="name">Researcher's email address: </label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="researcherEmail" name="researcherEmail" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="name">ZIP/Postal-code of trial location: </label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="zip" name="zip" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            Please email any support questions to <a href="mailto: ladlab@ucsd.edu" target="_blank">ladlab@ucsd.edu</a>
+          </div>
+
+        </div>
+
+        <p>Thank you for using the "Give-a-Number" app. This app deploys two standard methods for assessing children's understanding of number words drawn from the scientific literature. It estimates the numbers a child understands (between 1 and 10, or
+          higher). The app provides trial-by-trial instructions for testing, generates an estimate of the child's knowledge at the end of the test, and emails results to the user. Details regarding this test and its use in the scientific literature can
+          be found <a href="#" onclick="try { cordova.InAppBrowser.open('http://ladlab.ucsd.edu/given', '_system', 'location=yes,closebuttoncaption=Close'); } catch (x) { alert(x);}">HERE</a>.</p>
+        <p>
+          Confidentiality: All data collected used this app will be stored on secure servers housed by the University of California, San Diego (UCSD). No identifying information regarding individual children will be stored. Note that anonymized recorded behaviors
+          will be accessible to researchers at UCSD and may be shared with the wider research community.
+        </p>
+
+
+        <label>I agree to the above terms of use<input type="checkbox" id='agree'></label>
+        <br/>
+ -->
+        
+
+     <!--  </form>
+    </div>
+
+    <div data-role="footer" id="footer">
+
+    </div>
+  </div> -->
+</body>
+
+</html>

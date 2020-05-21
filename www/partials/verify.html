@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div data-role="page" data-cache="never" id="verifyPage">
+    <div data-role="header">
+      <h1>Give-N</h1>
+
+      <h2>Save test data?</h2>
+
+    </div>
+
+    <form action="./default.html" id="form1">
+
+      <p>Was this test run according to protocol, and should the results be stored in the session data?</p>
+
+      <input type="button" value="Yes" onclick="giveN.sendData(giveN.getTrialData()); $('#form1').submit();" />
+      <br />
+
+      <input type="button" value="Yes, but send data later" onclick="giveN.addDataToSend(giveN.getTrialData()); $('#form1').submit();" />
+      <br />
+
+      <input type="button" value="No" onclick="$('#form1').submit();" />
+      <p>
+        If you do not currently have internet, data will sent when you next connect (and you run this app).
+      </p>
+      <div id="results"></div>
+    </form>
+    <div data-role="footer" id="footer">
+
+    </div>
+  </div>
+</body>
+
+</html>

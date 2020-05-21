@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Settings</title>
+</head>
+
+<body>
+  <div data-role="page" id="settingsPage">
+    <div data-role="header">
+
+      <h1>Give-N</h1>
+      <h2>Default Settings</h2>
+      <p>These settings are applied to the test start screen</p>
+    </div>
+
+    <div role="main" class="ui-content">
+
+      <form action="./default.html" name="default">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Type:</label>
+          </div>
+          <div class="col-md-9">
+            <fieldset data-role="controlgroup">
+              <label>
+                                <input type="radio" name="trialType" id="trialType-1" value="titrated" checked="checked" onchange="$('.nontitratedRange').prop('disabled',this.checked).select('refresh');" />Titrated</label>
+              <label>
+                                <input type="radio" name="trialType" id="trialType-2" value="nontitrated" onchange="$('.nontitratedRange').prop('disabled',!this.checked).select('refresh');" />Non-titrated</label>
+              <div id="nontitratedRange" data-role="collapsible">
+                <h2>Non-titrated number range:</h2>
+                <!-- <input class="nontitratedRange" type="text" id="nontitratedRangeLow" name="nontitratedRangeLow" size="3" value="1" />
+                                -
+				<input class="nontitratedRange" type="text" id="nontitratedRangeHigh" name="nontitratedRangeHigh" size="3" value="10" />
+                                -->
+                <select name="nontitratedRange" class="nontitratedRange" multiple="multiple">
+                                    <option >1</option>
+                                    <option >2</option>
+                                    <option >3</option>
+                                    <option >4</option>
+                                    <option >5</option>
+                                    <option >6</option>
+                                    <option >7</option>
+                                    <option >8</option>
+                                    <option >9</option>
+                                    <option >10</option>
+                                </select>
+              </div>
+            </fieldset>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="languagesSpoken">
+                        Languages spoken by child:
+                    </div>
+                    <div class="col-md-9">
+                        <select multiple="multiple" name="languagesSpoken" size="4" onchange="if(this.value=='Other') document.getElementById('otherLanguageSpoken').style.display='block';">
+                            <option>English</option>
+                            <option>French</option>
+                            <option>Spanish</option>
+                            <option>Mandarin</option>
+                            <option>Japanese</option>
+                            <option>German</option>
+                            <option>Italian</option>
+                            <option value="Other">Other (please enter)</option>
+                        </select>
+                        <input id="otherLanguageSpoken" name="otherLanguageSpoken" style="display: none;" type="text" />
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="languageOfTrial">Language used for this trial:</label>
+          </div>
+          <div class="col-md-9">
+            <select size="4" name="languageOfTrial" onchange="if(this.value=='Other') document.getElementById('otherLanguageOfSession').style.display='block';">
+                            <option selected="selected">English</option>
+                            <option>French</option>
+                            <option>Spanish</option>
+                            <option>Mandarin</option>
+                            <option>Japanese</option>
+                            <option>German</option>
+                            <option>Italian</option>
+                            <option value="Other">Other (please enter)</option>
+                        </select>
+            <input id="otherLanguageOfSession" name="otherLanguageOfSession" style="display: none;" type="text" />
+
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="numberOfObjects">Number of counting objects available:</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="numberOfObjects" name="numberOfObjects" value="8">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="startNumber">Start number:</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="startNumber" name="startNumber" value="4">
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="highestNumber">Highest test number:</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" id="highestNumber" name="highestNumber" value="8">
+
+          </div>
+
+
+
+        </div>
+
+
+        <div class="row" id="customFields">
+        </div>
+
+
+        <div style="border: 1px solid #eeeeee;">
+          <h3>Create extra test data fields</h3>
+
+          <div class="row">
+            <div class="col-md-3">
+              <label for="fieldName">Field name:</label>
+            </div>
+            <div class="col-md-9">
+              <input type="text" id="fieldName" name="fieldName" value="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <label for="fieldValue">Default field value:</label>
+            </div>
+            <div class="col-md-9">
+              <input type="text" id="fieldValue" name="fieldValue" value="">
+            </div>
+            <div class="col-md-12">
+              <input type="button" value="Add this custom field" id="bt_addCustom" />
+            </div>
+
+          </div>
+        </div>
+
+        <br />
+        <br />
+        <input type="submit" value="Save" onclick="giveN.saveSettings(this.form)" />
+        <input type="submit" value="Cancel" />
+      </form>
+      <div data-role="popup" id="popupEditCustomField" data-theme="a" class="ui-corner-all">
+        <form>
+          <div style="padding: 10px 20px;">
+            <h3>Edit custom field</h3>
+            <label for="editFieldName" class="ui-hidden-accessible">Field name:</label>
+            <input type="text" name="editFieldName" id="editFieldName" value="" placeholder="New field name" data-theme="a" />
+
+            <input type="button" id="bt_customFieldChange" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check" value="Change" />
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+
+
+    <div data-role="footer"></div>
+  </div>
+</body>
+
+</html>

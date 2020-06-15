@@ -675,12 +675,17 @@ var giveN = {
 	    } else if (zip.length == 0) {
 	        alert("Please enter at least an approximate ZIP/Postal code for the location.");
 	        return false;
+	    } else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(researcherEmail) !== true) {
+	    	alert("Invalid email address");
+	    	return false;
 	    }
+
 	    var data = {};
 	    data.trialRows = null;
-	    data.researcherName = researcherName;
-        data.researcherInstitution = researcherInstitution;
-	    data.researcherEmail = researcherEmail;
+	   	data.userDesignation = "Researcher";
+	    data.userName = researcherName;
+        data.userInstitution = researcherInstitution;
+	    data.userEmail = researcherEmail;
 	    data.zip = zip;
 	    window.localStorage.setItem("giveN.trialData", JSON.stringify(data));
 	},
@@ -693,11 +698,16 @@ var giveN = {
         } else if (zip.length == 0) {
             alert("Please enter at least an approximate ZIP/Postal code for the location.");
             return false;
-        }
+        } else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(parentEmail) !== true) {
+	    	alert("Invalid email address");
+	    	return false;
+	    }
         var data = {};
         data.trialRows = null;
-        data.parentName = parentName;
-        data.parentEmail = parentEmail;
+        data.userDesignation = "Parent";
+        data.userName = parentName;
+        data.userInstitution = "NA (parent)";
+        data.userEmail = parentEmail;
         data.zip = zip;
         window.localStorage.setItem("giveN.trialData", JSON.stringify(data));
     },
@@ -776,6 +786,7 @@ var giveN = {
         
 	    $("#popupEditCustomField").popup("close");
 	},
+
 
 
 

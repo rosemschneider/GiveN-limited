@@ -185,6 +185,11 @@ $(document).delegate("#trialLogicPage", "pageinit", function () {
 
 });
 
+/*about page load logic*/
+$(document).delegate("#aboutPage", "pageinit", function () {
+
+});
+
 
 
 function next() {

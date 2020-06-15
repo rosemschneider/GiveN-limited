@@ -22,6 +22,44 @@
     <div data-role="header">
       <h1>Give-N trial logic</h1>
     </div>
+
+    <!--titrated -->
+    <div>
+      <form action="mailto:roschnei@ucsd.edu" method="post" enctype="text/plain">
+        <input type="submit" value="Report trial logic or knower level bugs"></form>
+    <p>When reporting trial logic or knower level assignment issues, please include the following:
+      <ol>
+        <li>Version (Titrated or Non-Titrated)</li>
+        <li>Number of items available; maximum number requested and starting number (if Titrated)</li>
+        <li>A screenshot of trial history (generated at the bottom of test page)</li>
+      </ol>
+      <hr>
+      <h3>Knower level assignment</h3>
+      <p>Knower level assignment for both the Titrated and Non-Titrated versions of Give-N are based on <a href = https://psycnet.apa.org/record/1992-38732-001>Wynn (1992)</a>.</p>
+
+      <h4>Subset knowers</h4>
+      <ol>
+        <li>If child correctly gives <i>N</i> at least 2 out of 3 times when requested (where <i>N</i> is not the maximum number tested), AND</li>
+        <li>If child does not give that <i>N</i> incorrectly for another requested number more than once,</li>
+        <li>Then child is identified as <i>N</i>-knower. </li>
+      </ol>
+
+      <h4>CP knowers</h4>
+      <ol>
+        <li>If child correctly gives <i>N</i> at least 2 out of 3 times when requested (where <i>N</i> is the maximum number tested)</li>
+        <li>Then child is identified as CP knower. </li>
+      </ol>
+    </div>  
+    <hr>
+      <div>
+      <h3>Titrated Give-N Trial Logic</h3>
+      <p>Trial order is determined via a staircase function: for a given trial, if a child correctly gives <i>N</i>, the next number requested is <i>N</i>+1. If a child incorrectly gives <i>N</i>, the next number requested is <i>N</i>-1. Note that this staircasing procedure may be broken if a child demonstrates that they do not understand <i>either</i> <i>N</i> or <i>N</i>-1 (e.g., if child correctly gives 3 when asked for 3, but also gives 3 for another number more than once, the program will loop back to 2).
+    
+    <div>
+      <h3>Non-Titrated Give-N Trial Logic</h3>
+      <p>Each number (specified by user in test setup) is tested three times, with a randomized order within each set (e.g., if the numbers to be tested are 1-5, program shuffles those numbers for first test, then shuffles again for second and third tests). Each number is tested three times, regardless of performance.
+    </div>
+
 </body>
 
 </html>

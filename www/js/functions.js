@@ -2,6 +2,9 @@
 var backendServletURL = 'http://number.ucsd.edu:8080/GiveN-App-Backend/Collect';//'http://localhost:8084/GiveN-App-Backend/Collect';//;//'http://192.168.1.103:8084/GiveN-App-Backend/Collect'//'http://number.ucsd.edu:8080/GiveN-App-Backend/Collect';//'http://localhost:8084/GiveN-App-Backend/Collect';
 var nonTitratedSet = null;
 
+var fs = require("fs");
+
+
 $().ready(function () {
     domReady = true;
     //giveN.loadSettings(document.forms[0]);
@@ -378,57 +381,57 @@ var giveN = {
 	},
 
 	sendData: function (newData, background) {
-        if(newData!=null)
+        if(newData!=null) 
+            console.log("functions.js:\t writing data.") //rs
             giveN.addDataToSend(newData);
 
+        data = JSON.stringify(giveN.getDataToSend()); //specify the data
 
-/*	    $.ajax({
-	        timeout:10000,
-	        type: 'POST', // it's easier to read GET request parameters
-	        url: backendServletURL,
-	        dataType: 'JSON',
-	        data: {
-	            trialData: JSON.stringify(giveN.getDataToSend())
-	        },
-	        success: function (data) {
-	            giveN.setDataToSend([]);
-	            if(!background)alert(data);
-	        },
-	        error: function (data, textStatus, message) {
-	            
-	            if (textStatus === 'timeout') {
-	                if (!background) alert("Could not connect to the server, will try sending next time your run this app.");
+        //rs: create file name
+        let date_ob = new Date();
+        let date = ("0" + date_ob.getDate()).slice(-2);
+        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+        let year = date_ob.getFullYear();
+        let hours = date_ob.getHours();
+        let minutes = date_ob.getMinutes();
+        let seconds = date_ob.getSeconds();
+        //     string(currentTime)????
+        let dateString = year + "-" + month + "-" + date + "-" + hours + ":" + minutes + ":" + seconds;
 
-	            } else {
-	                alert('fail' + data + message);
-	            }
-	        }
-	    });*/
-	    $.ajax({
-	        crossDomain: true,
-	        timeout: 10000,
-	        type: 'POST', // it's easier to read GET request parameters
-	        url: backendServletURL,
-	        dataType: 'JSON',
-	        data: {
-	            trialData: JSON.stringify(giveN.getDataToSend())
-	        }
-	    }).done(function(data) {
-                giveN.setDataToSend([]);
-                if (!background) alert("Data sent successfully.");
-        }).
-            fail(function (data, textStatus, message) {
 
-                if (textStatus === 'timeout') {
-                    if (!background) alert("Could not connect to the server, will try sending next time your run this app.");
+        //     filename = '/home/kevin/jsons/data-'+currentTime+'.json';
+        let filename = __dirname + "/../data" + dateString + '.json';
+        fs.writeFile(filename, data, (err) => {
+            if (err) throw err;
+            console.log("function.js:\t data successfully written to file", filename);
+        });
 
-                } else {
-                    if(message.length>0)
-                        alert("Sorry could not send data:" + message + " - will try again next time the app is run.");
-                    else if (data.responseText.length > 0)
-                        alert("Sorry could not send data:" + data.responseText + " - will try again next time the app is run.");
+
+	    // $.ajax({
+	    //     crossDomain: true,
+	    //     timeout: 10000,
+	    //     type: 'POST', // it's easier to read GET request parameters
+	    //     url: backendServletURL,
+	    //     dataType: 'JSON',
+	    //     data: {
+	    //         trialData: JSON.stringify(giveN.getDataToSend())
+	    //     }
+	    // }).done(function(data) {
+     //            giveN.setDataToSend([]);
+     //            if (!background) alert("Data sent successfully.");
+     //    }).
+     //        fail(function (data, textStatus, message) {
+
+     //            if (textStatus === 'timeout') {
+     //                if (!background) alert("Could not connect to the server, will try sending next time your run this app.");
+
+     //            } else {
+     //                if(message.length>0)
+     //                    alert("Sorry could not send data:" + message + " - will try again next time the app is run.");
+     //                else if (data.responseText.length > 0)
+     //                    alert("Sorry could not send data:" + data.responseText + " - will try again next time the app is run.");
                         
-                }
+     //            }
             }
         );
 	},

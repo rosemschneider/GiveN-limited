@@ -1,5 +1,5 @@
 ﻿var domReady = false;
-var backendServletURL = 'http://number.ucsd.edu:8080/GiveN-App-Backend/Collect';//'http://localhost:8084/GiveN-App-Backend/Collect';//;//'http://192.168.1.103:8084/GiveN-App-Backend/Collect'//'http://number.ucsd.edu:8080/GiveN-App-Backend/Collect';//'http://localhost:8084/GiveN-App-Backend/Collect';
+var backendServletURL = '192.168.0.100:3000';//'http://localhost:8084/GiveN-App-Backend/Collect';//;//'http://192.168.1.103:8084/GiveN-App-Backend/Collect'//'http://number.ucsd.edu:8080/GiveN-App-Backend/Collect';//'http://localhost:8084/GiveN-App-Backend/Collect';
 var nonTitratedSet = null;
 
 $().ready(function () {

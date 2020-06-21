@@ -351,7 +351,7 @@ var giveN = {
 	    var data = this.getTrialData();
 	    
 	    if (data.trialRows !=null && data.trialRows.length > 0 && confirm('Send partial data?')) {
-	        giveN.storeTrialResultData(knowerLevelResult.KL, "PD");
+	        // giveN.storeTrialResultData(knowerLevelResult.KL, "PD"); //I think this is failing because KL can't be assigned yet
 	        $('#form1').submit();
 	    } else {
 	        giveN.clearTrialDataResponses();
@@ -361,9 +361,14 @@ var giveN = {
 
 	clearTrialDataResponses: function(){
 	    var data = this.getTrialData();
-	    data.trialRows = [];
 	    window.localStorage.setItem("giveN.trialData", JSON.stringify(data));
 	},
+
+    clearAllData: function(){
+        window.localStorage.clear();
+        var data = this.getTrialData();
+        alert("Data cleared");
+    },
 
 	updateQueueStatus: function () {
         

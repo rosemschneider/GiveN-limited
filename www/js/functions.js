@@ -386,33 +386,35 @@ var giveN = {
         if(newData!=null)
             giveN.addDataToSend(newData);
         
-	    $.ajax({
-	        crossDomain: true,
-	        timeout: 10000,
-	        type: 'POST', // it's easier to read GET request parameters
-	        url: backendServletURL,
-	        dataType: 'JSON',
-	        data: {
-	            trialData: JSON.stringify(giveN.getDataToSend())
-	        }
-	    }).done(function(data) {
-                giveN.setDataToSend([]);
-                if (!background) alert("Data sent successfully.");
-        }).
-            fail(function (data, textStatus, message) {
+        if(newData != null) {
+    	    $.ajax({
+    	        crossDomain: true,
+    	        timeout: 10000,
+    	        type: 'POST', // it's easier to read GET request parameters
+    	        url: backendServletURL,
+    	        dataType: 'JSON',
+    	        data: {
+    	            trialData: JSON.stringify(giveN.getDataToSend())
+    	        }
+    	    }).done(function(data) {
+                    giveN.setDataToSend([]);
+                    if (!background) alert("Data sent successfully.");
+            }).
+                fail(function (data, textStatus, message) {
 
-                if (textStatus === 'timeout') {
-                    if (!background) alert("Could not connect to the server, will try sending next time your run this app.");
+                    if (textStatus === 'timeout') {
+                        if (!background) alert("Could not connect to the server, will try sending next time your run this app.");
 
-                } else {
-                    if(message.length>0)
-                        alert("Sorry could not send data:" + message + " - will try again next time the app is run.");
-                    else if (data.responseText.length > 0)
-                        alert("Sorry could not send data:" + data.responseText + " - will try again next time the app is run.");
-                        
+                    } else {
+                        if(message.length>0)
+                            alert("Sorry could not send data:" + message + " - will try again next time the app is run.");
+                        else if (data.responseText.length > 0)
+                            alert("Sorry could not send data:" + data.responseText + " - will try again next time the app is run.");
+                            
+                    }
                 }
-            }
-        );
+            );
+        }
 	},
 
 	generateNontitratedTestSet:function(testNumbers){

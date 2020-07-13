@@ -370,6 +370,12 @@ var giveN = {
         alert("Data cleared");
     },
 
+    clearSentData: function(){
+        window.localStorage.clear();
+        var data = this.getTrialData();
+        alert("Data successfully sent to server");
+    },
+
 	updateQueueStatus: function () {
         
 	    $('#footer').html( giveN.getNumberOfQueuedTrials() + " trials queued to send to the server.");
@@ -399,6 +405,7 @@ var giveN = {
     	    }).done(function(data) {
                     giveN.setDataToSend([]);
                     if (!background) alert("Data sent successfully.");
+                    giveN.clearSentData();
             }).
                 fail(function (data, textStatus, message) {
 

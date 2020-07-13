@@ -370,12 +370,6 @@ var giveN = {
         alert("Data cleared");
     },
 
-    // clearSentData: function(){
-    //     window.localStorage.clear();
-    //     var data = this.getTrialData();
-    //     alert("Data successfully sent to server");
-    // },
-
 	updateQueueStatus: function () {
         
 	    $('#footer').html( giveN.getNumberOfQueuedTrials() + " trials queued to send to the server.");
@@ -404,9 +398,10 @@ var giveN = {
     	        }
     	    }).done(function(data) {
                     giveN.setDataToSend([]);
-                    if (!background) alert("Data sent successfully.");
-                    window.localStorage.clear(); /*clear sent data*/
+                    // if (!background) alert("Data sent successfully.");
+                    window.localStorage.clear();
                     var data = this.getTrialData();
+                    alert("Data sent successfully");
             }).
                 fail(function (data, textStatus, message) {
 

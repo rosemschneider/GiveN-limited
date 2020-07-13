@@ -108,18 +108,18 @@ $(document).delegate("#doTestPage", "pageinit", function () {
 });
 
 /* Highest Count page load logic */
-// $(document).delegate("#highestCountPage", "pageinit", function () {
-//     //Change the Enter key to finish
-//     $(window).keydown(function (event) {
-//         if (event.keyCode == 13) {
-//             event.preventDefault();
-//             giveN.saveHowHigh(); 
-//             $('#form1').submit();
-//             return false;
-//         }
-//     });
+$(document).delegate("#highestCountPage", "pageinit", function () {
+    //Change the Enter key to finish
+    $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            giveN.saveHowHigh(); 
+            $('#form1').submit();
+            return false;
+        }
+    });
 
-// });
+});
 
 
 /* Verify page load logic */

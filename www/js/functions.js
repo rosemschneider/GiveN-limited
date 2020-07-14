@@ -391,7 +391,7 @@ var giveN = {
     	        timeout: 10000,
     	        type: 'POST', // it's easier to read GET request parameters
     	        url: backendServletURL,
-    	        dataType: 'JSON',
+    	        // dataType: 'JSON',
     	        data: {
     	            trialData: JSON.stringify(giveN.getDataToSend())
     	        }
@@ -401,8 +401,7 @@ var giveN = {
                     // window.localStorage.clear();
                     // var data = this.getTrialData();
                     // alert("Data sent successfully");
-            }).
-                fail(function (data, textStatus, message) {
+            }).fail(function (data, textStatus, message) {
 
                     if (textStatus === 'timeout') {
                         if (!background) alert("Could not connect to the server, will try sending next time your run this app.");

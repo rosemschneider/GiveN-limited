@@ -372,6 +372,8 @@ var giveN = {
 
     clearTrialRows: function(){
         //clear all non meta-data fields in data
+        var data = this.getTrialData();
+
         data.dob = null;
         data.gender = null;
         data.highestNumber = null;
@@ -386,7 +388,7 @@ var giveN = {
         window.localStorage.setItem('giveN.trialData', JSON.stringify(data));
 
         //then go back to dotest page
-        window.location.href ="partials/doTest.html";
+        window.location.href ="partials/default.html";
     },
 
 	updateQueueStatus: function () {

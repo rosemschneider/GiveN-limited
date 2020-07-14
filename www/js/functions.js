@@ -384,7 +384,7 @@ var giveN = {
 
         //set these items to null in local storage
         window.localStorage.setItem('giveN.trialData', JSON.stringify(data));
-    }
+    },
 
 	updateQueueStatus: function () {
         

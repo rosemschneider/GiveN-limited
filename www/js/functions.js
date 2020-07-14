@@ -370,6 +370,12 @@ var giveN = {
         alert("Data cleared");
     },
 
+    clearDataEnd: function(){
+        window.localStorage.clear();
+        var data = this.getTrialData();
+        $.mobile.navigate('index.html');
+    },
+
     clearTrialRows: function(){
         //clear all non meta-data fields in data
         var data = this.getTrialData();

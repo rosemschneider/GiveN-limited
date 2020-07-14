@@ -413,6 +413,7 @@ var giveN = {
         if(newData!=null)
             giveN.addDataToSend(newData);
         
+        if(giveN.getDataToSend() != null) {
     	    $.ajax({
     	        crossDomain: true,
     	        timeout: 10000,
@@ -447,6 +448,7 @@ var giveN = {
                     }
                 }
             );
+        }
 	},
 
 	generateNontitratedTestSet:function(testNumbers){

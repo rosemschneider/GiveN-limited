@@ -159,13 +159,13 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
                 KLMatrix[n-1] = 1;
             }
             //RMS: if num. trials on which child is asked for N >2, and if child gave N correctly less than 2/3 of times they were asked, they don't know N (set to -1)
-        } else if (NTrials > 2 && NCorrect / NTrials < 2 / 3) {
+        } else if (NTrials > 2 && NCorrect / NTrials <= 2 / 3) {
             KLMatrix[n-1] = -1;
             //RMS: if num. trials on which child is asked for N == 2, but they haven't gotten either correct, they don't know N (set to -1)
         } else if (NTrials == 2 && NCorrect == 0) {
             KLMatrix[n-1] = -1;
             //RMS: If the num. trials on which child FALSELY gave N for another number is >1, and if the num. of times they gave it correctly (divided by both correct and false gives) is less than 2/3, they don't know N
-        } else if (NFalse > 1 && NCorrect / (NFalse + NCorrect) < (2 / 3)) {
+        } else if (NFalse > 1 && NCorrect / (NFalse + NCorrect) <= (2 / 3)) {
             KLMatrix[n-1] = -1;
         }
 

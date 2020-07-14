@@ -388,7 +388,7 @@ var giveN = {
         window.localStorage.setItem('giveN.trialData', JSON.stringify(data));
 
         //then go back to dotest page
-        window.location.href ="partials/default.html";
+        $.mobile.navigate('partials/default.html');
     },
 
 	updateQueueStatus: function () {

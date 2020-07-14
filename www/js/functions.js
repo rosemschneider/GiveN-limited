@@ -370,6 +370,22 @@ var giveN = {
         alert("Data cleared");
     },
 
+    clearTrialRows: function(){
+        //clear all non meta-data fields in data
+        data.dob = null;
+        data.gender = null;
+        data.highestNumber = null;
+        data.numberOfObjects = null;
+        data.startNumber = null;
+        data.subjectId = null;
+        data.trialDateTime = null;
+        data.trialType = null;
+        data.trialRows = null;
+
+        //set these items to null in local storage
+        window.localStorage.setItem('giveN.trialData', JSON.stringify(data));
+    }
+
 	updateQueueStatus: function () {
         
 	    $('#footer').html( giveN.getNumberOfQueuedTrials() + " trials queued to send to the server.");
@@ -398,11 +414,13 @@ var giveN = {
     	    }).done(function(data) {
                     giveN.setDataToSend([]);
                     if (!background) alert("Data sent successfully.");
+                    window.location.href ="../confirmation.html";
+
                     //clear local storage
-                    window.localStorage.clear();
+                    // window.localStorage.clear();
 
                     //clear data
-                    var data = this.getTrialData();
+                    // var data = this.getTrialData();
                     // alert("Data sent successfully");
             }).fail(function (data, textStatus, message) {
 

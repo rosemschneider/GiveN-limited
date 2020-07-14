@@ -384,6 +384,9 @@ var giveN = {
 
         //set these items to null in local storage
         window.localStorage.setItem('giveN.trialData', JSON.stringify(data));
+
+        //then go back to dotest page
+        window.location.href ="partials/doTest.html";
     },
 
 	updateQueueStatus: function () {

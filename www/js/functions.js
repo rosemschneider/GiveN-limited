@@ -397,10 +397,10 @@ var giveN = {
     	        }
     	    }).done(function(data) {
                     giveN.setDataToSend([]);
-                    // if (!background) alert("Data sent successfully.");
-                    window.localStorage.clear();
-                    var data = this.getTrialData();
-                    alert("Data sent successfully");
+                    if (!background) alert("Data sent successfully.");
+                    // window.localStorage.clear();
+                    // var data = this.getTrialData();
+                    // alert("Data sent successfully");
             }).
                 fail(function (data, textStatus, message) {
 

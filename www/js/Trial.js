@@ -101,6 +101,14 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     //Progresses trials numbers
     Params.CurrTrial = Params.CurrTrial + 1;
 
+    //Make an array for tracking NCorrect, etc. 
+    var NTracker = [];
+
+    for (var i = 1; i == HighestTestNumber; i++) {
+    	NTracker.push = i;
+    }
+
+
     //This loops goes through each number from 1 to the highest number
     //tested to determine whether there is sufficient evidence that the
     //child knows or does not know N. If child knows N and does not know

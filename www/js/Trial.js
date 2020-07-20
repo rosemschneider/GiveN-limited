@@ -102,11 +102,11 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     Params.CurrTrial = Params.CurrTrial + 1;
 
     //Make an array for tracking NCorrect, etc. 
-    var NTracker = [];
+	Params.Tracker = [];
 
-    for (var i = 1; i == HighestTestNumber; i++) {
-    	NTracker.push = i;
-    }
+	for (var i = 1; i <= HighestTestNumber; i++) {
+		Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse]
+	}
 
 
     //This loops goes through each number from 1 to the highest number

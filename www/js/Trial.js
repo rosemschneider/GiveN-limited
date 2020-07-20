@@ -147,7 +147,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
             } else if (Params.Trials[t][0] != n) {
                 if (Params.Trials[t][1] == n) {
                     NFalse = NFalse + 1;
-                    if(Param.Trials[t][1] <= HighestTestNumber) {
+                    if(Params.Trials[t][1] <= HighestTestNumber) {
                     	Params.Tracker[Ans-1][4] = Params.Tracker[Ans-1][4]+1; //update False if within testing range
                     }
                 }

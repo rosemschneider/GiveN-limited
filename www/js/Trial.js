@@ -128,14 +128,18 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
             //RMS: Then, if the first item in the array is NOT current n (defined by outer loop), but the second item (answer) is, NFalse (num trials on which child incorrectly gave n for another number) +1
             if (Params.Trials[t][0] == n) {
                 NTrials = NTrials + 1;
+                alert(NTrials);
                 if (Params.Trials[t][1] == n) {
                     NCorrect = NCorrect + 1;
+                    alert(NCorrect);
                 } else {
                     NInc = NInc + 1;
+                    alert(NInc);
                 }
             } else if (Params.Trials[t][0] != n) {
                 if (Params.Trials[t][1] == n) {
                     NFalse = NFalse + 1;
+                    alert(NFalse);
                 }
             }
         }

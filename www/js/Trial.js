@@ -138,8 +138,8 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
                     NFalse = NFalse + 1;
                 }
             }
+            alert(n; NTrials; NCorrect; NInc; NFalse);
         }
-        alert(n; NTrials; NCorrect; NInc; NFalse);
 
         //This section of the code determines whether or not there is
         //sufficient evidence that a child knows or does not know N.

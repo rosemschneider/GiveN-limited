@@ -103,6 +103,8 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 
     //Make an array for tracking NCorrect, etc. 
 	Params.Tracker[Params.CurrTrial-1] = [];
+	Params.Tracker[Params.CurrTrial-1][0] = AskNumber;
+    Params.Tracker[Params.CurrTrial-1][1] = Ans;
 
 	// for (var i = 1; i <= HighestTestNumber; i++) {
 	// 	Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse]

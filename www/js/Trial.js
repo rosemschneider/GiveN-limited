@@ -9,6 +9,7 @@ var Params = {};
 var KL = 20;
 
 var trackerInit = 0;
+var updateTrackerInit = 0;
 
 //NB: the -1s all over the place come from differences between MATLAB and JS indexing
 
@@ -120,8 +121,8 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		if (Ans == AskNumber) { //if correct
 			Params.Tracker[AskNumber-1][2]++; //increment NCorrect by 1
 		} else {
-			if (Ans >= HighestTestNumber) { //if the number given is within test range
-				Params.Tracker[Ans-1][1]++; //update NFalse
+			if (Ans <= HighestTestNumber) { //if the number given is within test range
+				Params.Tracker[Ans-1][4]++; //update NFalse
 			}
 			Params.Tracker[AskNumber-1][3]++; //increment NInc by 1
 		}

@@ -139,6 +139,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	NumSuccesses = Params.Tracker[AskNumber-1][2]; //number of successes for N
 	NumSuccessesAnswer = Params.Tracker[Ans-1][2]; //number of successes for N (current ANSWER)
 	NumFailures = Params.Tracker[AskNumber-1][3]; //number of failures for N
+	NumFailuresAnswer = Params.Tracker[Ans-1][3]; //number of failures for N (current ANSWER)
 	NumFalseAskNumber = Params.Tracker[AskNumber-1][4]; //number of times N (current ask number) given falsely for another number
 	NumFalseAnswer = Params.Tracker[Ans-1][4]; //number of times N (current ANSWER) has been given falsely for another number
 
@@ -154,14 +155,14 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
 			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time
 			//they might know N - we're checking this below
-			if (NumSuccesses/(NumSuccesses + NumFalseAskNumber) < 2/3) {
+			if (NumSuccesses/(NumSuccesses + NumFailures + NumFalseAskNumber) < 2/3) {
 				//"Messy giver" - child who seems to know N, but also gives N for other numbers
 				//if they have correctly given N, but if they have also given that N falsely for another ask
 				//and if, of the times that they have given that N, they give falsely more than 1/2 of the time
 				//they do not know N
 				//update the KLMatrix for this asknumber to -1
 				KLMatrix[AskNumber-1] = -1;
-			} else if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFalseAskNumber) >= 2/3) {
+			} else if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFailures + NumFalseAskNumber) >= 2/3) {
 				//(NumSuccesses / (NumSuccesses + NumFalseAskNumber) >= 2/3)
 				//"Straightforward knower" - child who correctly gives N, and does not falsely give N
 				//If the child correctly gives N, and does not falsely give N more than half the time,
@@ -184,6 +185,10 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//Set KLMatrix for the answer to -1
 			KLMatrix[Ans-1] = -1;
 		} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
+			KLMatrix[Ans-1] = -1;
+		} else if(NumFalseAnswer >1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+			//Also for answer - this takes into account successes and failures
+			//this will be triggered if they had previously shown evidence of knowing N, but then start to fail on N, or Give N falsely
 			KLMatrix[Ans-1] = -1;
 		}
 	}

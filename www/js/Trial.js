@@ -150,7 +150,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//To-do; we will also need to hook this into logic of determining whether to assign KL
 
 	if (Params.CurrTrial > 3) { //if we have at least 3 trials worth of data
-		if (NumTrials > 1 && NumSuccesses / (NumSuccesses + NumTrials) >= 2/3) {
+		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
 			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time
 			//they might know N - we're checking this below
 			if (NumSuccesses/(NumSuccesses + NumFalseAskNumber) < 2/3) {
@@ -243,28 +243,28 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
         // If child has at least two trials @ N and the number correct is
         // greater then or equal to 2/3rds, the child may know N.
 
-        if (NTrials > 1 && NCorrect / NTrials >= (2 / 3)) {
-            //if more then 1/3 times the child provides N, it is on a trial
-            //that is not requesting N, the child does NOT know N. So, the
-            //Nth element of KLMatrix is set to -1.
+        // if (NTrials > 1 && NCorrect / NTrials >= (2 / 3)) {
+        //     //if more then 1/3 times the child provides N, it is on a trial
+        //     //that is not requesting N, the child does NOT know N. So, the
+        //     //Nth element of KLMatrix is set to -1.
 
-            if (NCorrect / (NFalse + NCorrect) < (2 / 3)) {
-                KLMatrix[n-1] = -1;
-                //OTherwise, child does know N and the Nth Element of KL matrix
-                //is set to 1.
-            } else {
-                KLMatrix[n-1] = 1;
-            }
-            //RMS: if num. trials on which child is asked for N >2, and if child gave N correctly less than 2/3 of times they were asked, they don't know N (set to -1)
-        } else if (NTrials > 2 && NCorrect / NTrials <= 2 / 3) {
-            KLMatrix[n-1] = -1;
-            //RMS: if num. trials on which child is asked for N == 2, but they haven't gotten either correct, they don't know N (set to -1)
-        } else if (NTrials == 2 && NCorrect == 0) {
-            KLMatrix[n-1] = -1;
-            //RMS: If the num. trials on which child FALSELY gave N for another number is >1, and if the num. of times they gave it correctly (divided by both correct and false gives) is less than 2/3, they don't know N
-        } else if (NFalse > 1 && NCorrect / (NFalse + NCorrect) <= (2 / 3)) {
-            KLMatrix[n-1] = -1;
-        }
+        //     if (NCorrect / (NFalse + NCorrect) < (2 / 3)) {
+        //         KLMatrix[n-1] = -1;
+        //         //OTherwise, child does know N and the Nth Element of KL matrix
+        //         //is set to 1.
+        //     } else {
+        //         KLMatrix[n-1] = 1;
+        //     }
+        //     //RMS: if num. trials on which child is asked for N >2, and if child gave N correctly less than 2/3 of times they were asked, they don't know N (set to -1)
+        // } else if (NTrials > 2 && NCorrect / NTrials <= 2 / 3) {
+        //     KLMatrix[n-1] = -1;
+        //     //RMS: if num. trials on which child is asked for N == 2, but they haven't gotten either correct, they don't know N (set to -1)
+        // } else if (NTrials == 2 && NCorrect == 0) {
+        //     KLMatrix[n-1] = -1;
+        //     //RMS: If the num. trials on which child FALSELY gave N for another number is >1, and if the num. of times they gave it correctly (divided by both correct and false gives) is less than 2/3, they don't know N
+        // } else if (NFalse > 1 && NCorrect / (NFalse + NCorrect) <= (2 / 3)) {
+        //     KLMatrix[n-1] = -1;
+        // }
 
         //if child passes criteria for Highest Test Number, sets KL to this.
         if (KLMatrix[n-1] == 1 && n == HighestTestNumber) {

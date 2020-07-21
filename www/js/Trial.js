@@ -114,6 +114,18 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		trackerInit = 1;
 	}
 
+	//update tracker
+	if (Params.Trials[CurrTrial-1][0] == AskNumber) {
+		Params.Tracker[AskNumber-1][1]++; //update NTrials for every trial
+		if (Params.Trials[CurrTrial-1][1] == AskNumber) { //if correct
+			Params.Tracker[AskNumber-1][2]++; //increment NCorrect by 1
+		} else {
+			if (Params.Trials[CurrTrial-1][1] >= HighestTestNumber) { //if the number given is within test range
+				Params.Tracker[Ans-1][1]++; //update NFalse
+			}
+			Params.Tracker[AskNumber-1][3]++; //increment NInc by 1
+		}
+	}
 
     //This loops goes through each number from 1 to the highest number
     //tested to determine whether there is sufficient evidence that the
@@ -141,21 +153,21 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
             //RMS: if not, the kid didn't give N, so NInc = +1
             //RMS: Then, if the first item in the array is NOT current n (defined by outer loop), but the second item (answer) is, NFalse (num trials on which child incorrectly gave n for another number) +1
             if (Params.Trials[t][0] == n) {
-            	Params.Tracker[AskNumber-1][1] = Params.Tracker[AskNumber-1][1]+1; // update NTrials
+            	// Params.Tracker[AskNumber-1][1]++; // update NTrials
                 NTrials = NTrials + 1;
                 if (Params.Trials[t][1] == n) {
-                Params.Tracker[AskNumber-1][2] = Params.Tracker[AskNumber-1][2]+1; //update correct	
+                // Params.Tracker[AskNumber-1][2] = Params.Tracker[AskNumber-1][2]+1; //update correct	
                     NCorrect = NCorrect + 1;
                 } else {
-                	Params.Tracker[AskNumber-1][3] = Params.Tracker[AskNumber-1][3]+1; //update incorrect
+                	// Params.Tracker[AskNumber-1][3] = Params.Tracker[AskNumber-1][3]+1; //update incorrect
                     NInc = NInc + 1;
                 }
             } else if (Params.Trials[t][0] != n) {
                 if (Params.Trials[t][1] == n) {
                     NFalse = NFalse + 1;
-                    if(Params.Trials[t][1] <= HighestTestNumber) {
-                    	Params.Tracker[Ans-1][4] = Params.Tracker[Ans-1][4]+1; //update False if within testing range
-                    }
+                    // if(Params.Trials[t][1] <= HighestTestNumber) {
+                    // 	Params.Tracker[Ans-1][4] = Params.Tracker[Ans-1][4]+1; //update False if within testing range
+                    // }
                 }
             }
         }

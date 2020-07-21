@@ -159,20 +159,20 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				//and if, of the times that they have given that N, they give falsely more than 1/2 of the time
 				//they do not know N
 				//update the KLMatrix for this asknumber to -1
-				KLMatrixTest[AskNumber-1] = -1;
-			} else {
+				KLMatrix[AskNumber-1] = -1;
+			} else if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFalseAskNumber) >= 2/3) {
 				//(NumSuccesses / (NumSuccesses + NumFalseAskNumber) >= 2/3)
 				//"Straightforward knower" - child who correctly gives N, and does not falsely give N
 				//If the child correctly gives N, and does not falsely give N more than half the time,
 				//They know N
 				//Update the KLMatrix for this number to 1
-				KLMatrixTest[AskNumber-1] = 1;
+				KLMatrix[AskNumber-1] = 1;
 			}
 		} else if (NumTrials == 3 && NumSuccesses == 0) {
 			//"straightforward failure"
 			//If they have been asked about number 3x and they have 0 successes, they do not know N
 			//Update KLMatrix for this asknumber to -1
-			KLMatrixTest[AskNumber-1] = -1;
+			KLMatrix[AskNumber-1] = -1;
 		} else if (NumFalseAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
 			//"False giver"
 			//This is checking based on the ANSWER given, because we also need to see if the
@@ -181,11 +181,11 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//And if they have given that number falsely more than half of the time they have been asked
 			//They do not know the ANSWER N
 			//Set KLMatrix for the answer to -1
-			KLMatrixTest[Ans-1] = -1;
+			KLMatrix[Ans-1] = -1;
 		}
 	}
 
-	alert(KLMatrixTest);
+	alert(KLMatrix);
 
 	// //Now we need to make something that will loop over params.tracker
 	// //and will check at the end of each trial (after 3 trials) if child knows N

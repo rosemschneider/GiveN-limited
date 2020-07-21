@@ -135,6 +135,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 
 	//rename these so the logic is a little easier to read
 	NumTrials = Params.Tracker[AskNumber-1][1]; //number of trials asked about N
+	NumTrialsAnswer = Params.Tracker[Ans-1][1]; //number of trials asked about N (current ANSWER)
 	NumSuccesses = Params.Tracker[AskNumber-1][2]; //number of successes for N
 	NumSuccessesAnswer = Params.Tracker[Ans-1][2]; //number of successes for N (current ANSWER)
 	NumFailures = Params.Tracker[AskNumber-1][3]; //number of failures for N
@@ -181,6 +182,8 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//And if they have given that number falsely more than half of the time they have been asked
 			//They do not know the ANSWER N
 			//Set KLMatrix for the answer to -1
+			KLMatrix[Ans-1] = -1;
+		} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
 			KLMatrix[Ans-1] = -1;
 		}
 	}

@@ -8,6 +8,8 @@ var Params = {};
 
 var KL = 20;
 
+var trackerInit = 0;
+
 //NB: the -1s all over the place come from differences between MATLAB and JS indexing
 
 //This number can be changed if the experimenter wants to start at a number
@@ -101,11 +103,15 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     //Progresses trials numbers
     Params.CurrTrial = Params.CurrTrial + 1;
 
-    //Make an array for tracking NCorrect, etc. 
-	Params.Tracker = [];
+    //initialize tracker array;
+    if (trackerInit == 0) {
+	    //Make an array for tracking NCorrect, etc. 
+		Params.Tracker = [];
 
-	for (var i = 1; i <= HighestTestNumber; i++) {
-		Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
+		for (var i = 1; i <= HighestTestNumber; i++) {
+			Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
+		}
+		trackerInit = 1;
 	}
 
 

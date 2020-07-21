@@ -107,7 +107,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     if (trackerInit == 0) {
 	    //Make an array for tracking NCorrect, etc. 
 		Params.Tracker = [];
-		// Params.KL = 20;
+		Params.KL = 20;
 
 		for (var i = 1; i <= HighestTestNumber; i++) {
 			Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
@@ -211,33 +211,33 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 
 	//Now we need to check the KLMatrix and see if there is enough evidence to determine a KL
 
-	// if (Params.CurrTrial >= 3) { //if we have at least 3 trials worth of data
-	// 	if (KLMatrix[AskNumber-1] == 1 && AskNumber == HighestTestNumber) {
-	// 			//if child is succeeding on N
-	// 			//And if that N is the Highest Test number
-	// 			//Set KL to this
-	//             KL = HighestTestNumber;
-	//             // Params.KL = HighestTestNumber;
-	//             break
-	//         } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
-	//             // and if n= 1, sets KL to 0 (since child is failing at 1)
-	//             if (AskNumber == 1) {
-	//                 KL = 0;
-	//                 // Params.KL = 0;
-	//                 break
-	//             } else if (KLMatrix[AskNumber - 2] == 1) { //if the child is failing criteria for n
-	//             	//but if they succeeded on the number below that AskNumber
-	//             	//Set their KL to Asknumber -1
-	//                 KL = AskNumber-1;
-	//                 // Params.KL = AskNumber-1;
-	//                 break
-	//             } else { 
-	//             	KL = 20; 
-	//             	break
-	//             }
-	//         }
-	//     }
-	// }
+	if (Params.CurrTrial >= 3) { //if we have at least 3 trials worth of data
+		if (KLMatrix[AskNumber-1] == 1 && AskNumber == HighestTestNumber) {
+				//if child is succeeding on N
+				//And if that N is the Highest Test number
+				//Set KL to this
+	            KL = HighestTestNumber;
+	            // Params.KL = HighestTestNumber;
+	            break
+	        } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
+	            // and if n= 1, sets KL to 0 (since child is failing at 1)
+	            if (AskNumber == 1) {
+	                KL = 0;
+	                // Params.KL = 0;
+	                break
+	            } else if (KLMatrix[AskNumber - 2] == 1) { //if the child is failing criteria for n
+	            	//but if they succeeded on the number below that AskNumber
+	            	//Set their KL to Asknumber -1
+	                KL = AskNumber-1;
+	                // Params.KL = AskNumber-1;
+	                break
+	            } else { 
+	            	KL = 20; 
+	            	break
+	            }
+	        }
+	    }
+	}
 	
 
 
@@ -316,31 +316,31 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
         // }
 
         //if child passes criteria for Highest Test Number, sets KL to this.
-        if (KLMatrix[n-1] == 1 && n == HighestTestNumber) {
-            KL = HighestTestNumber;
-            Params.KL = HighestTestNumber;
-            break
-            //if child passes criteria for N and fails criteria for N+1, then
-            //sets KL to n.
+        // if (KLMatrix[n-1] == 1 && n == HighestTestNumber) {
+        //     KL = HighestTestNumber;
+        //     Params.KL = HighestTestNumber;
+        //     break
+        //     //if child passes criteria for N and fails criteria for N+1, then
+        //     //sets KL to n.
 
-        } else if (KLMatrix[n-1] == -1) { //if child is failing criteria n
-            // if child is failing criteria for n (above) and n= 1, sets KL to 0 (since child is failing at 1)
-            if (n == 1) {
-                KL = 0;
-                Params.KL = 0;
-                break
-                //if child is failing at n and succeeding at n-1, sets KL to
-                //n-1 . 
-            } else if (KLMatrix[n - 2] == 1) { //if the child is failing criteria for n
-            	//knower level is N-1
-                KL = n - 1;
-                Params.KL = n - 1;
-                break
-            } else { 
-            	KL = 20; 
-            	break
-            }
-        }
+        // } else if (KLMatrix[n-1] == -1) { //if child is failing criteria n
+        //     // if child is failing criteria for n (above) and n= 1, sets KL to 0 (since child is failing at 1)
+        //     if (n == 1) {
+        //         KL = 0;
+        //         Params.KL = 0;
+        //         break
+        //         //if child is failing at n and succeeding at n-1, sets KL to
+        //         //n-1 . 
+        //     } else if (KLMatrix[n - 2] == 1) { //if the child is failing criteria for n
+        //     	//knower level is N-1
+        //         KL = n - 1;
+        //         Params.KL = n - 1;
+        //         break
+        //     } else { 
+        //     	KL = 20; 
+        //     	break
+        //     }
+        // }
     }
     
     //If knower level was not determined during the above loop, continue...

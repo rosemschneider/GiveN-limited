@@ -238,6 +238,73 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	        }
 	}
 
+	//now we need to determine what the next number will be
+	if (KL == 20  || type==='nontitrated') {
+        //sets  hold on the ask number from the previous trial.
+        PreviousAskNumber = AskNumber;
+        //if child gives correct answer on the trial...
+        if (Ans == AskNumber) {
+            //And if the asknumber on this trial is not equal to the Highest
+            //test number, increase by 1.
+            if (AskNumber != HighestTestNumber) {
+                AskNumber = AskNumber + 1;
+            }
+            //also make sure this loop does not go below 1
+            // otherwise, if child is wrong, decrease ask number by 1, so long as
+            // ask number on previous trial was not already set to 1....
+            // it
+        } else if (AskNumber != 1) {
+            AskNumber = AskNumber - 1;
+        } else if (AskNumber == 1) { //make sure this loop doesn't go below 1
+        	AskNumber = AskNumber;
+        }
+        //Creates dummy variable.
+        nextflag = 0;
+        //while dummy variable nextflag still equals 0,
+        while (nextflag == 0) {
+            //in the event that we have already determined that child does not
+            //know Ask Number (As determined by above loop, decrease ask number by
+            //1) This sometimes happens in child gives N for not N requests but
+            //also for requests for N.For example, if a child always gives 2 for 2
+            //and 3, in order for us to find out if he is a one knower, we have to
+            //also ask for 1 but the above logic will never get us there without
+            //this bit.
+            if (KLMatrix[AskNumber-1] == -1) { //this is checking whether the child does not know the current N
+            	//If child does not know current N, we will not test it
+                AskNumber = AskNumber - 1;
+            } else {
+                nextflag = 1;
+            }
+        }
+        //Problem is, sometimes the above bit will lead to testing the same
+        //number twice. or in the case of non-knowers 1 will be tested twice.
+        //This tries to avoid that. After testing this number, program returns
+        //to the duplicated number
+        if (PreviousAskNumber == AskNumber) { 
+            HoldAskNumber = AskNumber;
+            //If you are already at Highest Test number ask, one number lower
+            if (AskNumber == HighestTestNumber) {
+                AskNumber = HighestTestNumber - 1;
+            } else if (AskNumber == 1) { //or if the AskNumber is one, test go up one number
+            	AskNumber = AskNumber + 1;
+            } else {
+                // Otherwise, ask for one higher than the max tested so far.
+
+                AskNumberVector = get(Params.Trials, ':', 1);
+
+                if (max(AskNumberVector-1) == HighestTestNumber) {
+
+                    AskNumber = 1;
+                } else {
+                    AskNumber = max(AskNumberVector-1) + 1;
+                }
+            }
+        }
+
+
+
+    }
+
 
 	//Now we need to check the KLMatrix and see if there is enough evidence to determine a KL
 
@@ -377,70 +444,70 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     }
     
     //If knower level was not determined during the above loop, continue...
-    if (KL == 20  || type==='nontitrated') {
-        //sets  hold on the ask number from the previous trial.
-        PreviousAskNumber = AskNumber;
-        //if child gave correct answer on last trial...
-        if (Ans == AskNumber) {
-            //And if the asknumber on previous trial is not equal to the Highest
-            //test number, increase by 1.
-            if (AskNumber != HighestTestNumber) {
-                AskNumber = AskNumber + 1;
-            }
-            //also make sure this loop does not go below 1
-            // otherwise, if child is wrong, decrease ask number by 1, so long as
-            // ask number on previous trial was not already set to 1....
-            // it
-        } else if (AskNumber != 1) {
-            AskNumber = AskNumber - 1;
-        } else if (AskNumber == 1) { //make sure this loop doesn't go below 1
-        	AskNumber = AskNumber;
-        }
-        //Creates dummy variable.
-        nextflag = 0;
-        //while dummy variable nextflag still equals 0,
-        while (nextflag == 0) {
-            //in the event that we have already determined that child does not
-            //know Ask Number (As determined by above loop, decrease ask number by
-            //1) This sometimes happens in child gives N for not N requests but
-            //also for requests for N.For example, if a child always gives 2 for 2
-            //and 3, in order for us to find out if he is a one knower, we have to
-            //also ask for 1 but the above logic will never get us there without
-            //this bit.
-            if (KLMatrix[AskNumber-1] == -1) {
-                AskNumber = AskNumber - 1;
-            } else {
-                nextflag = 1;
-            }
-        }
-        //Problem is, sometimes the above bit will lead to testing the same
-        //number twice. or in the case of non-knowers 1 will be tested twice.
-        //This tries to avoid that. After testing this number, program returns
-        //to the duplicated number
-        if (PreviousAskNumber == AskNumber) {
-            HoldAskNumber = AskNumber;
-            //If you are already at Highest Test number ask, one number lower
-            if (AskNumber == HighestTestNumber) {
-                AskNumber = HighestTestNumber - 1;
-            } else if (AskNumber == 1) { //or if the AskNumber is one, test go up one number
-            	AskNumber = AskNumber + 1;
-            } else {
-                // Otherwise, ask for one higher than the max tested so far.
+    // if (KL == 20  || type==='nontitrated') {
+    //     //sets  hold on the ask number from the previous trial.
+    //     PreviousAskNumber = AskNumber;
+    //     //if child gave correct answer on last trial...
+    //     if (Ans == AskNumber) {
+    //         //And if the asknumber on previous trial is not equal to the Highest
+    //         //test number, increase by 1.
+    //         if (AskNumber != HighestTestNumber) {
+    //             AskNumber = AskNumber + 1;
+    //         }
+    //         //also make sure this loop does not go below 1
+    //         // otherwise, if child is wrong, decrease ask number by 1, so long as
+    //         // ask number on previous trial was not already set to 1....
+    //         // it
+    //     } else if (AskNumber != 1) {
+    //         AskNumber = AskNumber - 1;
+    //     } else if (AskNumber == 1) { //make sure this loop doesn't go below 1
+    //     	AskNumber = AskNumber;
+    //     }
+    //     //Creates dummy variable.
+    //     nextflag = 0;
+    //     //while dummy variable nextflag still equals 0,
+    //     while (nextflag == 0) {
+    //         //in the event that we have already determined that child does not
+    //         //know Ask Number (As determined by above loop, decrease ask number by
+    //         //1) This sometimes happens in child gives N for not N requests but
+    //         //also for requests for N.For example, if a child always gives 2 for 2
+    //         //and 3, in order for us to find out if he is a one knower, we have to
+    //         //also ask for 1 but the above logic will never get us there without
+    //         //this bit.
+    //         if (KLMatrix[AskNumber-1] == -1) {
+    //             AskNumber = AskNumber - 1;
+    //         } else {
+    //             nextflag = 1;
+    //         }
+    //     }
+    //     //Problem is, sometimes the above bit will lead to testing the same
+    //     //number twice. or in the case of non-knowers 1 will be tested twice.
+    //     //This tries to avoid that. After testing this number, program returns
+    //     //to the duplicated number
+    //     if (PreviousAskNumber == AskNumber) {
+    //         HoldAskNumber = AskNumber;
+    //         //If you are already at Highest Test number ask, one number lower
+    //         if (AskNumber == HighestTestNumber) {
+    //             AskNumber = HighestTestNumber - 1;
+    //         } else if (AskNumber == 1) { //or if the AskNumber is one, test go up one number
+    //         	AskNumber = AskNumber + 1;
+    //         } else {
+    //             // Otherwise, ask for one higher than the max tested so far.
 
-                AskNumberVector = get(Params.Trials, ':', 1);
+    //             AskNumberVector = get(Params.Trials, ':', 1);
 
-                if (max(AskNumberVector) == HighestTestNumber) {
+    //             if (max(AskNumberVector) == HighestTestNumber) {
 
-                    AskNumber = 1;
-                } else {
-                    AskNumber = max(AskNumberVector) + 1;
-                }
-            }
-        }
+    //                 AskNumber = 1;
+    //             } else {
+    //                 AskNumber = max(AskNumberVector) + 1;
+    //             }
+    //         }
+    //     }
 
 
 
-    }
+    // }
 
     if (type === 'nontitrated') {
         if((Params.CurrTrial-1)<nonTitratedSet.length){ 

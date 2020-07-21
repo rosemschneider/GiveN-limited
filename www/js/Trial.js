@@ -210,7 +210,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 
 	//Now we need to check the KLMatrix and see if there is enough evidence to determine a KL
 
-	if (Param.CurrTrial >= 3) { //if we have at least 3 trials worth of data
+	if (Params.CurrTrial >= 3) { //if we have at least 3 trials worth of data
 		if (KLMatrix[AskNumber-1] == 1 && AskNumber == HighestTestNumber) {
 				//if child is succeeding on N
 				//And if that N is the Highest Test number

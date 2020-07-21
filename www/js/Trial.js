@@ -107,6 +107,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     if (trackerInit == 0) {
 	    //Make an array for tracking NCorrect, etc. 
 		Params.Tracker = [];
+		Params.KL = 20;
 
 		for (var i = 1; i <= HighestTestNumber; i++) {
 			Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
@@ -151,7 +152,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//To-do; we will then need to hook this into logic of next number selection
 	//To-do; we will also need to hook this into logic of determining whether to assign KL
 
-	if (Params.CurrTrial > 3) { //if we have at least 3 trials worth of data
+	if (Params.CurrTrial >= 3) { //if we have at least 3 trials worth of data
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
 			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time
 			//they might know N - we're checking this below

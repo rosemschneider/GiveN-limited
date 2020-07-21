@@ -186,10 +186,18 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			KLMatrix[Ans-1] = -1;
 		} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
 			KLMatrix[Ans-1] = -1;
-		} else if(NumFalseAnswer >1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+		} else if(NumFalseAnswer >=1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
 			//Also for answer - this takes into account successes and failures
 			//this will be triggered if they had previously shown evidence of knowing N, but then start to fail on N, or Give N falsely
 			KLMatrix[Ans-1] = -1;
+		} else if (NumFalseAnswer == 1 && NumSuccessesAnswer > 2 || NumFailuresAnswer >2) {
+			//this is to catch kids who had previously shown evidence of knowing N
+			//But then start giving N incorrectly for other numbers
+			//This will update KLMatrix to -1
+			//This takes into account both successes and failures
+			if(NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+				KLMatrix[Ans-1]= -1;
+			}
 		}
 	}
 

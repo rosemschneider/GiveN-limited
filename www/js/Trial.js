@@ -79,10 +79,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     // N+1th position, the program ends and the child is declared an N-knower (
     // because s/he knows N but does not know N+1.)
 
-    KLMatrix = zeros(HighestTestNumber, 0);
-    KLMatrixTest = zeros(HighestTestNumber, 0);
-
-
+    
     //**    while (KL==20){ //KL is set to 20 at the beginning of the program. So basically this is saying, while we have not determined KL, keep going...
     if (skipflag == 1) { //occasionally, we do not follow the standard order of up one number for correct, down one number for incorrect. In these cases skipflag is changed to 1.
         AskNumber = HoldAskNumber;//forces ask number to HoldAskNumber
@@ -106,6 +103,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     Params.CurrTrial = Params.CurrTrial + 1;
 
     //initialize tracker array;
+    //initialize KLMatrix
     if (trackerInit == 0) {
 	    //Make an array for tracking NCorrect, etc. 
 		Params.Tracker = [];
@@ -113,6 +111,12 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		for (var i = 1; i <= HighestTestNumber; i++) {
 			Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
 		}
+
+		//Initialized KLMatrix so that zeros are not reset every time
+		KLMatrix = zeros(HighestTestNumber, 0);
+    	KLMatrixTest = zeros(HighestTestNumber, 0);
+
+    	//set tracker init to 1 so that it doesn't run again
 		trackerInit = 1;
 	}
 

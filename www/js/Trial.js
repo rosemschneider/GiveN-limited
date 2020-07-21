@@ -115,12 +115,12 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	}
 
 	//update tracker
-	if (Params.Trials[CurrTrial-1][0] == AskNumber) {
+	if (Params.Trials[Params.CurrTrial-1][0] == AskNumber) {
 		Params.Tracker[AskNumber-1][1]++; //update NTrials for every trial
-		if (Params.Trials[CurrTrial-1][1] == AskNumber) { //if correct
+		if (Params.Trials[Params.CurrTrial-1][1] == AskNumber) { //if correct
 			Params.Tracker[AskNumber-1][2]++; //increment NCorrect by 1
 		} else {
-			if (Params.Trials[CurrTrial-1][1] >= HighestTestNumber) { //if the number given is within test range
+			if (Params.Trials[Params.CurrTrial-1][1] >= HighestTestNumber) { //if the number given is within test range
 				Params.Tracker[Ans-1][1]++; //update NFalse
 			}
 			Params.Tracker[AskNumber-1][3]++; //increment NInc by 1

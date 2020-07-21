@@ -205,9 +205,34 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				KLMatrix[Ans-1]= -1;
 			}
 		}
+
+		// now we're going to check and see if this works for KL assignment
+		if (KLMatrix[AskNumber-1] == 1 && AskNumber == HighestTestNumber) {
+			//if child is succeeding on N
+		// 		//And if that N is the Highest Test number
+		// 		//Set KL to this
+	            KL = HighestTestNumber;
+	            Params.KL = HighestTestNumber;
+	 //            // break
+	            alert(KL);
+	        } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
+	        	// and if n= 1, sets KL to 0 (since child is failing at 1)
+	        	if (AskNumber == 1) {
+	        		KL = 0;
+	        		Params.KL = 0;
+	        		alert(KL);
+	        	} else if (KLMatrix[AskNumber - 2] == 1){ //if the child is failing criteria for n
+	        		//but if they succeeded on the number below that AskNumber
+	             	//Set their KL to Asknumber -1
+	             	KL = AskNumber-1;
+	             	Params.KL = AskNumber-1;
+	                alert(KL);
+	        	} else {
+	        		KL = 20;
+	        	}
+	        }
 	}
 
-	alert(KLMatrix);
 
 	//Now we need to check the KLMatrix and see if there is enough evidence to determine a KL
 

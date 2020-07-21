@@ -107,7 +107,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     if (trackerInit == 0) {
 	    //Make an array for tracking NCorrect, etc. 
 		Params.Tracker = [];
-		Params.KL = 20;
+		// Params.KL = 20;
 
 		for (var i = 1; i <= HighestTestNumber; i++) {
 			Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
@@ -218,22 +218,25 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				//Set KL to this
 	            KL = HighestTestNumber;
 	            // Params.KL = HighestTestNumber;
-	            break
+	            // break
+	            alert(KL);
 	        } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
 	            // and if n= 1, sets KL to 0 (since child is failing at 1)
 	            if (AskNumber == 1) {
 	                KL = 0;
 	                // Params.KL = 0;
-	                break
+	                // break
+	                alert(KL);
 	            } else if (KLMatrix[AskNumber - 2] == 1) { //if the child is failing criteria for n
 	            	//but if they succeeded on the number below that AskNumber
 	            	//Set their KL to Asknumber -1
 	                KL = AskNumber-1;
+	                alert(KL);
 	                // Params.KL = AskNumber-1;
-	                break
+	                // break
 	            } else { 
 	            	KL = 20; 
-	            	break
+	            	// break
 	            }
 	        }
 	    }

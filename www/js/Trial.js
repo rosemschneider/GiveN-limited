@@ -185,6 +185,11 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//Set KLMatrix for the answer to -1
 			KLMatrix[Ans-1] = -1;
 		} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
+			//this is updating based on an incorrect answer
+			//if the child has falsely given that number in response to another number more than once
+			//and if the number of false gives outweighs successes
+			//the child does not know that N
+			//update KLMatrix for the answer based on this number
 			KLMatrix[Ans-1] = -1;
 		} else if(NumFalseAnswer >=1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
 			//Also for answer - this takes into account successes and failures
@@ -203,8 +208,35 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 
 	alert(KLMatrix);
 
-	// //Now we need to make something that will loop over params.tracker
-	// //and will check at the end of each trial (after 3 trials) if child knows N
+	//Now we need to check the KLMatrix and see if there is enough evidence to determine a KL
+
+	if (Param.CurrTrial >= 3) { //if we have at least 3 trials worth of data
+		if (KLMatrix[AskNumber-1] == 1 && AskNumber == HighestTestNumber) {
+				//if child is succeeding on N
+				//And if that N is the Highest Test number
+				//Set KL to this
+	            KL = HighestTestNumber;
+	            Params.KL = HighestTestNumber;
+	            break
+	        } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
+	            // and if n= 1, sets KL to 0 (since child is failing at 1)
+	            if (AskNumber == 1) {
+	                KL = 0;
+	                Params.KL = 0;
+	                break
+	            } else if (KLMatrix[AskNumber - 2] == 1) { //if the child is failing criteria for n
+	            	//but if they succeeded on the number below that AskNumber
+	            	//Set their KL to Asknumber -1
+	                KL = AskNumber-1;
+	                Params.KL = AskNumber-1;
+	                break
+	            } else { 
+	            	KL = 20; 
+	            	break
+	            }
+	        }
+	    }
+	}
 	
 
 

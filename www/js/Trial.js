@@ -80,6 +80,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     // because s/he knows N but does not know N+1.)
 
     KLMatrix = zeros(HighestTestNumber, 0);
+    KLMatrixTest = zeros(HighestTestNumber, 0);
 
 
     //**    while (KL==20){ //KL is set to 20 at the beginning of the program. So basically this is saying, while we have not determined KL, keep going...
@@ -127,6 +128,20 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			Params.Tracker[AskNumber-1][3]++; //increment NInc by 1
 		}
 	}
+
+	//Now we need to make something that will loop over params.tracker
+	//and will check at the end of each trial (after 3 trials) if child knows N
+	if (CurrTrial > 3) {
+		if(Params.Tracker[AskNumber-1][1] > 1) {
+			if (Params.Tracker[AskNumber-1][2]/Params.Tracker[AskNumber-1][1] >= 2/3) {
+				KLMatrixTest[AskNumber-1] = 1;
+			} else {
+				KLMatrixTest[AskNumber-1] = -1;
+			}
+		}
+		}
+	}
+
 
     //This loops goes through each number from 1 to the highest number
     //tested to determine whether there is sufficient evidence that the

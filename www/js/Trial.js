@@ -129,19 +129,63 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		}
 	}
 
-	// //Now we need to make something that will loop over params.tracker
-	// //and will check at the end of each trial (after 3 trials) if child knows N
-	if (Params.CurrTrial > 3) {
-		if(Params.Tracker[AskNumber-1][1] > 1 && Params.Tracker[AskNumber-1][2]/Params.Tracker[AskNumber-1][1] >= 2/3) { //if this number has been queried before
-			if (Params.Tracker[AskNumber-1][2]/(Params.Tracker[AskNumber-1][4] + Params.Tracker[AskNumber-1][2]) < 2/3) {//NCorrect / (NFalse + NCorrect) < (2 / 3) - kL -1
-				KLMatrixTest[AskNumber-1] = -1;	
+	//rename these so the logic is a little easier to read
+	NumTrials = Params.Tracker[AskNumber-1][1]; //number of trials asked about N
+	NumSuccesses = Params.Tracker[AskNumber-1][2]; //number of successes for N
+	NumSuccessesAnswer = Params.Tracker[Ans-1][2]; //number of successes for N (current ANSWER)
+	NumFailures = Params.Tracker[AskNumber-1][3]; //number of failures for N
+	NumFalseAskNumber = Params.Tracker[AskNumber-1][4]; //number of times N (current ask number) given falsely for another number
+	NumFalseAnswer = Params.Tracker[Ans-1][4]; //number of times N (current ANSWER) has been given falsely for another number
+
+
+	//Logic for updating KL Matrix
+	//This will be run when we have at least 3 trials
+	//For a given N (Current Ask Number), we will check whether this is enough evidence to update the KL Matrix
+	//TO-do; break this out into a separate function
+	//To-do; we will then need to hook this into logic of next number selection
+	//To-do; we will also need to hook this into logic of determining whether to assign KL
+
+	if (Params.CurrTrial > 3) { //if we have at least 3 trials worth of data
+		if (NumTrials > 1 && NumSuccesses / (NumSuccesses + NumTrials) >= 2/3) {
+			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time
+			//they might know N - we're checking this below
+			if (NumSuccesses/(NumSuccesses + NumFalseAskNumber) < 2/3) {
+				//"Messy giver" - child who seems to know N, but also gives N for other numbers
+				//if they have correctly given N, but if they have also given that N falsely for another ask
+				//and if, of the times that they have given that N, they give falsely more than 1/2 of the time
+				//they do not know N
+				//update the KLMatrix for this asknumber to -1
+				KLMatrixTest[AskNumber-1] = -1;
 			} else {
+				//(NumSuccesses / (NumSuccesses + NumFalseAskNumber) >= 2/3)
+				//"Straightforward knower" - child who correctly gives N, and does not falsely give N
+				//If the child correctly gives N, and does not falsely give N more than half the time,
+				//They know N
+				//Update the KLMatrix for this number to 1
 				KLMatrixTest[AskNumber-1] = 1;
-			}//
-		} else {
-			alert("Alert!");
+			}
+		} else if (NumTrials == 3 && NumSuccesses == 0) {
+			//"straightforward failure"
+			//If they have been asked about number 3x and they have 0 successes, they do not know N
+			//Update KLMatrix for this asknumber to -1
+			KLMatrixTest[AskNumber-1] = -1;
+		} else if (NumFalseAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
+			//"False giver"
+			//This is checking based on the ANSWER given, because we also need to see if the
+			//child has met the criteria for NOT knowing the answer
+			//If, for the answer, they have given that N falsely more than once
+			//And if they have given that number falsely more than half of the time they have been asked
+			//They do not know the ANSWER N
+			//Set KLMatrix for the answer to -1
+			KLMatrixTest[Ans-1] = -1;
 		}
 	}
+
+	alert(KLMatrixTest);
+
+	// //Now we need to make something that will loop over params.tracker
+	// //and will check at the end of each trial (after 3 trials) if child knows N
+	
 
 
     //This loops goes through each number from 1 to the highest number

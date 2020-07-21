@@ -5,6 +5,13 @@ var subjectRequestTemplate;
 var knowerLevelResult = {};//we'll get back the result of the test for each iteration here.
 var Params = {}; 
 
+//Make an array for tracking NCorrect, etc. 
+Params.Tracker = [];
+
+for (var i = 1; i <= HighestTestNumber; i++) {
+	Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
+}
+
 
 var KL = 20;
 
@@ -100,13 +107,6 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 
     //Progresses trials numbers
     Params.CurrTrial = Params.CurrTrial + 1;
-
-    //Make an array for tracking NCorrect, etc. 
-	Params.Tracker = [];
-
-	for (var i = 1; i <= HighestTestNumber; i++) {
-		Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
-	}
 
 
     //This loops goes through each number from 1 to the highest number

@@ -129,18 +129,18 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		}
 	}
 
-	//Now we need to make something that will loop over params.tracker
-	//and will check at the end of each trial (after 3 trials) if child knows N
-	if (CurrTrial > 3) {
-		if(Params.Tracker[AskNumber-1][1] > 1) {
-			if (Params.Tracker[AskNumber-1][2]/Params.Tracker[AskNumber-1][1] >= 2/3) {
-				KLMatrixTest[AskNumber-1] = 1;
-			} else {
-				KLMatrixTest[AskNumber-1] = -1;
-			}
-		}
-		}
-	}
+	// //Now we need to make something that will loop over params.tracker
+	// //and will check at the end of each trial (after 3 trials) if child knows N
+	// if (CurrTrial > 3) {
+	// 	if(Params.Tracker[AskNumber-1][1] > 1) {
+	// 		if (Params.Tracker[AskNumber-1][2]/Params.Tracker[AskNumber-1][1] >= 2/3) {
+	// 			KLMatrixTest[AskNumber-1] = 1;
+	// 		} else {
+	// 			KLMatrixTest[AskNumber-1] = -1;
+	// 		}
+	// 		}
+	// 	}
+	// }
 
 
     //This loops goes through each number from 1 to the highest number

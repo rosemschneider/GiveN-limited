@@ -84,6 +84,7 @@ $(document).delegate("#doTestPage", "pageinit", function () {
     subjectRequestTemplate = document.getElementById('subjectRequest').innerHTML;
 
     Params.Trials = [];
+    Params.Tracker = [];
     Params.CurrTrial = 1;
     Params.KL = 20;
     currentMockQuestion = 0;

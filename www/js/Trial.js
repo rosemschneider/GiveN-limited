@@ -258,7 +258,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		PreviousAskNumber = AskNumber; 
 		//if we have not determined the maximum number that a child knows, 
 		//then it's business as usual 
-			if (maxNumber != null) {
+			if (maxNumber == null) {
 				//if child gives a correct answer on the current trial
 				if(Ans == AskNumber) {
 					//and if the current number is not the highest test number

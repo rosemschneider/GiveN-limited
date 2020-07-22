@@ -331,7 +331,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 					}
 				}
 			}
-		}
+			
 
 		
 

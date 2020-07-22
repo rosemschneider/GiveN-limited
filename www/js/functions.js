@@ -85,6 +85,7 @@ $(document).delegate("#doTestPage", "pageinit", function () {
 
     Params.Trials = [];
     Params.Tracker = [];
+    Params.maxNumber = null;
     Params.CurrTrial = 1;
     Params.KL = 20;
     currentMockQuestion = 0;

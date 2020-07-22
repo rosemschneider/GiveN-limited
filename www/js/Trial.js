@@ -242,11 +242,11 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//or the current response
 	//it is, for every trial, checking the KL matrix, seeing if a -1 has been assigned
 	//if so, we are not testing any numbers beyond this in the TITRATED version
-	var maxNumber = null;
+	Params.maxNumber = null;
 	if (KLMatrix[AskNumber-1] == -1) {
-		maxNumber = AskNumber;
+		Params.maxNumber = AskNumber;
 	} else if (KLMatrix[Ans-1] == -1) {
-		maxNumber = Ans;
+		Params.maxNumber = Ans;
 	}
 
 	//now we need to determine what the next number tested will be
@@ -258,7 +258,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		PreviousAskNumber = AskNumber; 
 		//if we have not determined the maximum number that a child knows, 
 		//then it's business as usual 
-			if (maxNumber == null) {
+			if (Params.maxNumber == null) {
 				//if child gives a correct answer on the current trial
 				if(Ans == AskNumber) {
 					//and if the current number is not the highest test number
@@ -281,17 +281,17 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			} else { //if have determined a maximum number that the child knows
 				//then we will not test any numbers that are above this maximum
 				//let's start with incorrect because it's easier to work through
-				if (AskNumber > maxNumber) {
+				if (AskNumber > Params.maxNumber) {
 					//if the current askNumber is greater than the max number,
 					//the next number tested will need to be one less than the maxNumber
 					//this deals with cases where the child is being tested on, e.g., 5, 
 					//but is showing evidence that they don't know, e.g., 3
-					AskNumber = maxNumber -1;
+					AskNumber = Params.maxNumber -1;
 				}
 				//now we can deal with +/-1 staircasing with a maxNumber
 				if (Ans == AskNumber) {
 					//if the child is correct on the current trial
-					if (AskNumber+1 < maxNumber) {
+					if (AskNumber+1 < Params.maxNumber) {
 						//and if the current asknumber is less than the maxNumber,
 						//increase the AskNumber by 1
 						AskNumber = AskNumber +1;
@@ -299,7 +299,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 						//I don't think this is ever going to be the case, but just in case
 						//if AskNumber is the highest test number, go down one
 						AskNumber = AskNumber-1;
-					} else if (AskNumber +1 >= maxNumber) {
+					} else if (AskNumber +1 >= Params.maxNumber) {
 						//if adding one to the current number will take you above the maxNumber
 						//then subtract one so that you don't ask the same number twice
 						AskNumber = AskNumber - 1;
@@ -311,10 +311,10 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 						AskNumber = AskNumber -1;
 					} else if (AskNumber == 1) {
 						//if the current number is one
-						if (AskNumber+1 < maxNumber) {
+						if (AskNumber+1 < Params.maxNumber) {
 							//and if the maximum number isn't two, go up to 2
 							AskNumber = AskNumber+1;
-						} else if (AskNumber+1 >= maxNumber) {
+						} else if (AskNumber+1 >= Params.maxNumber) {
 							//otherwise, just ask one again
 							AskNumber = AskNumber;
 						}

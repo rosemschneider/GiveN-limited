@@ -280,38 +280,38 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 						//if the current number is 1, go up to 2
 						AskNumber = AskNumber+1;
 					}
-			} else {
+				}
+			} else if (Params.maxNumber != null) {
 				//if have determined a maximum number that the child knows
 				//then we will not test any numbers that are above this maximum
 				//let's start with incorrect because it's easier to work through
 				if (Ans != AskNumber) {
 					if (maxNumberInit == 1) {
 						if (AskNumber >= Params.maxNumber) {
-							AskNumber = Params.maxNumber -1;
-							maxNumberInit = 0;
+								AskNumber = Params.maxNumber -1;
+								maxNumberInit = 0;
 						} 
 					} else {
 						if (AskNumber != 1) {
-							AskNumber = AskNumber -1;
+								AskNumber = AskNumber -1;
 						} else if (AskNumber == 1 && AskNumber + 1 < Params.maxNumber) {
-							AskNumber = AskNumber+1;
+								AskNumber = AskNumber+1;
 						} else {
-							AskNumber = AskNumber;
+								AskNumber = AskNumber;
 						}
-
 					}
 				} else if (Ans == AskNumber) {
 					if (AskNumber+1 < Params.maxNumber) {
-						AskNumber = AskNumber+1;
+							AskNumber = AskNumber+1;
 					} else if (AskNumber == HighestTestNumber) {
-						AskNumber = AskNumber-1;
+							AskNumber = AskNumber-1;
 					} else if (AskNumber +1 >= Params.maxNumber) {
-						AskNumber = AskNumber-1;
+							AskNumber = AskNumber-1;
 					}
 				}
 			}
 		}
-	}
+	
 
 				
 

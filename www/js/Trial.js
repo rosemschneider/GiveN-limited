@@ -192,7 +192,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//the child does not know that N
 			//update KLMatrix for the answer based on this number
 			KLMatrix[Ans-1] = -1;
-		} else if(NumFalseAnswer >=1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+		} else if(NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
 			//Also for answer - this takes into account successes and failures
 			//this will be triggered if they had previously shown evidence of knowing N, but then start to fail on N, or Give N falsely
 			KLMatrix[Ans-1] = -1;
@@ -247,6 +247,8 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		Params.maxNumber = AskNumber;
 	} else if (KLMatrix[Ans-1] == -1) {
 		Params.maxNumber = Ans;
+	} else {
+		Params.maxNumber = null;
 	}
 
 	//now we need to determine what the next number tested will be

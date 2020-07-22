@@ -245,11 +245,11 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//if so, we are not testing any numbers beyond this in the TITRATED version
 	if (KLMatrix[AskNumber-1] == -1) {
 		Params.maxNumber = AskNumber;
+		maxNumberInit = 1;
 	} else if (KLMatrix[Ans-1] == -1) {
 		Params.maxNumber = Ans;
-	} else {
-		Params.maxNumber = null;
-	}
+		maxNumberInit = 1;
+	} 
 
 	//now we need to determine what the next number tested will be
 	//in the titrated version 
@@ -283,7 +283,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			} else if (Params.maxNumber != null) { //if have determined a maximum number that the child knows
 				//then we will not test any numbers that are above this maximum
 				//let's start with incorrect because it's easier to work through
-				if (maxNumberInit == 0) {
+				if (maxNumberInit == 1) {
 					//if this is the first trial on which the maxnumber has been set, we may need to break out
 					//of +/-1
 					//this bit of code is doing this, and then setting maxNumberInit to 1
@@ -293,11 +293,11 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 						//this deals with cases where the child is being tested on, e.g., 5, 
 						//but is showing evidence that they don't know, e.g., 3
 						AskNumber = Params.maxNumber -1;
-						maxNumberInit = 1;
+						maxNumberInit = 0;
 					}
 				}
 
-				if (maxNumberInit == 1) {
+				if (maxNumberInit == 0) {
 					//if this is not the first trial after the max number has been triggered
 					//we can deal with +/-1 staircasing with a maxNumber
 					if (Ans == AskNumber) {

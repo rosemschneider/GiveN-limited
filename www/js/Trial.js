@@ -284,57 +284,36 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				//if have determined a maximum number that the child knows
 				//then we will not test any numbers that are above this maximum
 				//let's start with incorrect because it's easier to work through
-				if (maxNumberInit == 1) {
-					//if this is the first trial on which the maxnumber has been set, we may need to break out
-					//of +/-1
-					//this bit of code is doing this, and then setting maxNumberInit to 1
-					if (AskNumber >= Params.maxNumber) {
-						//if the current askNumber is greater than the max number,
-						//the next number tested will need to be one less than the maxNumber
-						//this deals with cases where the child is being tested on, e.g., 5, 
-						//but is showing evidence that they don't know, e.g., 3
-						AskNumber = Params.maxNumber -1;
-						maxNumberInit = 0;
-					} else { //if this is not the first time after triggering the maxnumber
-						//if this is not the first trial after the max number has been triggered
-						//we can deal with +/-1 staircasing with a maxNumber
-						if (Ans == AskNumber) {
-							//if the child is correct on the current trial
-							if (AskNumber+1 < Params.maxNumber) {
-								//and if the current asknumber is less than the maxNumber,
-								//increase the AskNumber by 1
-								AskNumber = AskNumber +1;
-							} else if (AskNumber == HighestTestNumber) {
-								//I don't think this is ever going to be the case, but just in case
-								//if AskNumber is the highest test number, go down one
-								AskNumber = AskNumber-1;
-							} else if (AskNumber +1 >= Params.maxNumber) {
-								//if adding one to the current number will take you above the maxNumber
-								//then subtract one so that you don't ask the same number twice
-								AskNumber = AskNumber - 1;
-							} 
-						} else {
-							//if the child does not get the current number correct
-							if (AskNumber != 1) {
-								//if the current AskNumber isn't 1, business as usual
-								AskNumber = AskNumber -1;
-							} else if (AskNumber == 1) {
-								//if the current number is one
-								if (AskNumber+1 < Params.maxNumber) {
-									//and if the maximum number isn't two, go up to 2
-									AskNumber = AskNumber+1;
-								} else if (AskNumber+1 >= Params.maxNumber) {
-									//otherwise, just ask one again
-									AskNumber = AskNumber;
-								}
-							}
+				if (Ans != AskNumber) {
+					if (maxNumberInit == 1) {
+						if (AskNumber >= Params.maxNumber) {
+							AskNumber = Params.maxNumber -1;
+							maxNumberInit = 0;
 						} 
+					} else {
+						if (AskNumber != 1) {
+							AskNumber = AskNumber -1;
+						} else if (AskNumber == 1 && AskNumber + 1 < Params.maxNumber) {
+							AskNumber = AskNumber+1;
+						} else {
+							AskNumber = AskNumber;
+						}
+
+					}
+				} else if (Ans == AskNumber) {
+					if (AskNumber+1 < Params.maxNumber) {
+						AskNumber = AskNumber+1;
+					} else if (AskNumber == HighestTestNumber) {
+						AskNumber = AskNumber-1;
+					} else if (AskNumber +1 >= Params.maxNumber) {
+						AskNumber = AskNumber-1;
 					}
 				}
 			}
 		}
 	}
 
+				
 
 		
 

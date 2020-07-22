@@ -243,7 +243,6 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//or the current response
 	//it is, for every trial, checking the KL matrix, seeing if a -1 has been assigned
 	//if so, we are not testing any numbers beyond this in the TITRATED version
-	Params.maxNumber = null;
 	if (KLMatrix[AskNumber-1] == -1) {
 		Params.maxNumber = AskNumber;
 	} else if (KLMatrix[Ans-1] == -1) {

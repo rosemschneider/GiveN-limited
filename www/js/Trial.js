@@ -432,46 +432,46 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     //tested to determine whether there is sufficient evidence that the
     //child knows or does not know N. If child knows N and does not know
     //N-1, Knower Level is determined.
-    for (var n = 1; n <= HighestTestNumber; n++) {
-        NCorrect = 0;   //NCorrect counts how many inquiries child as gotten correct when asked for N thus far.
-        NInc = 0;       //NInc counts how many inquires for N a child has gotten incorrect
-        NFalse = 0;     // NFalse counts how many times child has responded N to trials that are not asking for N. E.g. if N=3, how many times a child gave 3 when asked for 1, 2, 4, 5, etc.
-        NTrials = 0;    // Total number of trials child has been asked for N. Is redundant because Ntrials=Ncorrect+Ninc. But helps for understanding purposes.
+    // for (var n = 1; n <= HighestTestNumber; n++) {
+    //     NCorrect = 0;   //NCorrect counts how many inquiries child as gotten correct when asked for N thus far.
+    //     NInc = 0;       //NInc counts how many inquires for N a child has gotten incorrect
+    //     NFalse = 0;     // NFalse counts how many times child has responded N to trials that are not asking for N. E.g. if N=3, how many times a child gave 3 when asked for 1, 2, 4, 5, etc.
+    //     NTrials = 0;    // Total number of trials child has been asked for N. Is redundant because Ntrials=Ncorrect+Ninc. But helps for understanding purposes.
 
-        // Params.Trials is a 2 column matrix that creates a new row for
-        // each trial.Column 1 is set to Ask Number (see above) and column 2
-        // is set to the child's response (also see above)
-        // The following section of the code goes through each row of
-        // Params.Trials searching for trials where N is requested and
-        // tallying up NCorrect, NInc, NFalse and NTrials.
-        //for t=1:size(Params.Trials,1);
-        for (var t = 0; t < size(Params.Trials) ; t++) {
+    //     // Params.Trials is a 2 column matrix that creates a new row for
+    //     // each trial.Column 1 is set to Ask Number (see above) and column 2
+    //     // is set to the child's response (also see above)
+    //     // The following section of the code goes through each row of
+    //     // Params.Trials searching for trials where N is requested and
+    //     // tallying up NCorrect, NInc, NFalse and NTrials.
+    //     //for t=1:size(Params.Trials,1);
+    //     for (var t = 0; t < size(Params.Trials) ; t++) {
 
-            //RMS: the following is going through the array of params.trials, which is (asked, answered)
-            //RMS: this is looped through for every trial
-            //RMS: if the first item (asked) is equal to the current n (incremented by outer for loop), number of trials on which kid asked for N increases by 1
-            //RMS: if the second item is also N, NCorrect = +1
-            //RMS: if not, the kid didn't give N, so NInc = +1
-            //RMS: Then, if the first item in the array is NOT current n (defined by outer loop), but the second item (answer) is, NFalse (num trials on which child incorrectly gave n for another number) +1
-            if (Params.Trials[t][0] == n) {
-            	// Params.Tracker[AskNumber-1][1]++; // update NTrials
-                NTrials = NTrials + 1;
-                if (Params.Trials[t][1] == n) {
-                // Params.Tracker[AskNumber-1][2] = Params.Tracker[AskNumber-1][2]+1; //update correct	
-                    NCorrect = NCorrect + 1;
-                } else {
-                	// Params.Tracker[AskNumber-1][3] = Params.Tracker[AskNumber-1][3]+1; //update incorrect
-                    NInc = NInc + 1;
-                }
-            } else if (Params.Trials[t][0] != n) {
-                if (Params.Trials[t][1] == n) {
-                    NFalse = NFalse + 1;
-                    // if(Params.Trials[t][1] <= HighestTestNumber) {
-                    // 	Params.Tracker[Ans-1][4] = Params.Tracker[Ans-1][4]+1; //update False if within testing range
-                    // }
-                }
-            }
-        }
+    //         //RMS: the following is going through the array of params.trials, which is (asked, answered)
+    //         //RMS: this is looped through for every trial
+    //         //RMS: if the first item (asked) is equal to the current n (incremented by outer for loop), number of trials on which kid asked for N increases by 1
+    //         //RMS: if the second item is also N, NCorrect = +1
+    //         //RMS: if not, the kid didn't give N, so NInc = +1
+    //         //RMS: Then, if the first item in the array is NOT current n (defined by outer loop), but the second item (answer) is, NFalse (num trials on which child incorrectly gave n for another number) +1
+    //         if (Params.Trials[t][0] == n) {
+    //         	// Params.Tracker[AskNumber-1][1]++; // update NTrials
+    //             NTrials = NTrials + 1;
+    //             if (Params.Trials[t][1] == n) {
+    //             // Params.Tracker[AskNumber-1][2] = Params.Tracker[AskNumber-1][2]+1; //update correct	
+    //                 NCorrect = NCorrect + 1;
+    //             } else {
+    //             	// Params.Tracker[AskNumber-1][3] = Params.Tracker[AskNumber-1][3]+1; //update incorrect
+    //                 NInc = NInc + 1;
+    //             }
+    //         } else if (Params.Trials[t][0] != n) {
+    //             if (Params.Trials[t][1] == n) {
+    //                 NFalse = NFalse + 1;
+    //                 // if(Params.Trials[t][1] <= HighestTestNumber) {
+    //                 // 	Params.Tracker[Ans-1][4] = Params.Tracker[Ans-1][4]+1; //update False if within testing range
+    //                 // }
+    //             }
+    //         }
+    //     }
 
         //This section of the code determines whether or not there is
         //sufficient evidence that a child knows or does not know N.
@@ -528,7 +528,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
         //     	break
         //     }
         // }
-    }
+    // }
     
     //If knower level was not determined during the above loop, continue...
     // if (KL == 20  || type==='nontitrated') {

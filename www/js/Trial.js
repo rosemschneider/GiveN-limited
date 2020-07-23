@@ -334,7 +334,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 						KL = 0;
 						Params.KL = 0;
 						break;
-					} else if (k == KLMatrix.length && KLMatrix[k] == 1) {
+					} else if (k+1 == KLMatrix.length && KLMatrix[k] == 1) {
 						//if we've made it to the last number
 						//and they are all correct
 						//then child is that N-knower

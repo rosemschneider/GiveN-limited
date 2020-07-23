@@ -353,7 +353,7 @@ var giveN = {
 	    var data = this.getTrialData();
 	    
 	    if (data.trialRows !=null && data.trialRows.length > 0 && confirm('Send partial data?')) {
-	        // giveN.storeTrialResultData(knowerLevelResult.KL, "PD"); //I think this is failing because KL can't be assigned yet
+	        giveN.storeTrialResultData(knowerLevelResult.KL, "Partial data"); 
 	        $('#form1').submit();
 	    } else {
 	        giveN.clearTrialDataResponses();

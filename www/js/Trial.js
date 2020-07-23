@@ -287,6 +287,14 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 								AskNumber = Params.maxNumber -1;
 								maxNumberInit = 0;
 							}
+						} else if (AskNumber < Params.maxNumber) {
+							if (AskNumber + 1 < Params.maxNumber) {
+								AskNumber = AskNumber + 1;
+								maxNumberInit = 0;
+							} else {
+								AskNumber = Params.maxNumber -1;
+								maxNumberInit = 0;
+							}
 						} 
 					} else {
 						if (AskNumber != 1) {

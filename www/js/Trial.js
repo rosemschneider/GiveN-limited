@@ -317,7 +317,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		//non-titrated logic
 		//non-titrated set is already shuffled, we just need to progress through the array
 		if (type == "non-titrated") {
-			if (Params.CurrTrial < nonTitratedSet.length;) { //if we still have numbers to test
+			if (Params.CurrTrial < nonTitratedSet.length) { //if we still have numbers to test
 				AskNumber = nonTitratedSet[Params.CurrTrial]; //then we are going to progress
 			} else { //we are going to evaluated the evidence and assign a KL, which ends the task
 				//KL for non-titrated will be assigned based on highest contiguous number

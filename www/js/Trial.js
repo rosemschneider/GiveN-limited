@@ -278,20 +278,21 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				//then we will not test any numbers that are above this maximum
 				//let's start with incorrect because it's easier to work through
 				if (Ans != AskNumber) {
-					if (maxNumberInit == 1) {
-						if (Params.maxNumber == 1) {
-							AskNumber = 1;
+					if (maxNumberInit == 1) { //if this is the first trial after we set the max number
+						if (AskNumber >= Params.maxNumber) {
+							if (Params.maxNumber == 1) {
+								AskNumber = 1;
+								maxNumberInit =0;
+							}
+							AskNumber = Params.maxNumber -1;
 							maxNumberInit = 0;
-						} else if (Params.maxNumber > 1 && AskNumber >= Params.maxNumber) {
-								AskNumber = Params.maxNumber -1;
-								maxNumberInit = 0;
 						} 
 					} else {
 						if (AskNumber != 1) {
 								AskNumber = AskNumber -1;
 						} else if (AskNumber == 1 && AskNumber + 1 < Params.maxNumber) {
 								AskNumber = AskNumber+1;
-						} else if (AskNumber == 1 || maxNumber == 1) {
+						} else if (maxNumber == 1) {
 								AskNumber = AskNumber;
 						}
 					}

@@ -214,8 +214,6 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		// 		//Set KL to this
 	            KL = HighestTestNumber;
 	            Params.KL = HighestTestNumber;
-	 //            // break
-	            alert(KL);
 	        } else if (KLMatrix[AskNumber-1] == 1 && KLMatrix[AskNumber] == -1) {
 	        	//if child is succeeding on N, but they fail on N+1,
 	        	//Set their KL to N
@@ -226,13 +224,11 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	        	if (AskNumber == 1) {
 	        		KL = 0;
 	        		Params.KL = 0;
-	        		alert(KL);
 	        	} else if (KLMatrix[AskNumber - 2] == 1){ //if the child is failing criteria for n
 	        		//but if they succeeded on the number below that AskNumber
 	             	//Set their KL to Asknumber -1
 	             	KL = AskNumber-1;
 	             	Params.KL = AskNumber-1;
-	                alert(KL);
 	        	} else {
 	        		KL = 20;
 	        	}

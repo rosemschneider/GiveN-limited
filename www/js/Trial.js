@@ -320,7 +320,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		if (type == "nontitrated") {
 			if (Params.CurrTrial-1 < nonTitratedSet.length) { //if we still have numbers to test
 				AskNumber = nonTitratedSet[Params.CurrTrial-1]; //then we are going to progress
-			} else if (Params.CurrTrial == nonTitratedSet.length) { //if we are on the last trial
+			} else { //if we are on the last trial
 				for (var k = 0; k <= KLMatrix.length; k++) {
 					if (KLMatrix[k] == -1) {
 						//if we reach a number the child doesn't know
@@ -342,6 +342,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 						Params.KL = k+1;
 						break;
 					}
+					break;
 				}
 		}
 	}

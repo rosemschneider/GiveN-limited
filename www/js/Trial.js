@@ -318,7 +318,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		//non-titrated set is already shuffled, we just need to progress through the array
 		//everything works except the KL assignment!
 		if (type == "non-titrated") {
-			if (Params.CurrTrial < nonTitratedSet.length) { //if we still have numbers to test
+			if (Params.CurrTrial-1 < nonTitratedSet.length) { //if we still have numbers to test
 				AskNumber = nonTitratedSet[Params.CurrTrial]; //then we are going to progress
 			} else if (Params.CurrTrial == nonTitratedSet.length) { //if we are on the last trial
 				for (var k = 0; k <= KLMatrix.length; k++) {
@@ -628,12 +628,12 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 
     // }
 
-    if (type === 'nontitrated') {
-        if((Params.CurrTrial-1)<nonTitratedSet.length){ 
-            AskNumber = nonTitratedSet[Params.CurrTrial-1];
-            //KL will have been set above
-        }
-    }
+    // if (type === 'nontitrated') {
+    //     if((Params.CurrTrial-1)<nonTitratedSet.length){ 
+    //         AskNumber = nonTitratedSet[Params.CurrTrial-1];
+    //         //KL will have been set above
+    //     }
+    // }
 
 
 

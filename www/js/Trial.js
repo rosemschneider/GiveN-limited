@@ -287,13 +287,13 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				//let's start with incorrect because it's easier to work through
 				if (Ans != AskNumber) {
 					if (maxNumberInit == 1) {
-						if (AskNumber >= Params.maxNumber) {
-								AskNumber = Params.maxNumber -1;
-								maxNumberInit = 0;
-						} else if (AskNumber >= Params.maxNumber && Params.maxNumber == 1) {
+						if (Params.maxNumber == 1) {
 							AskNumber = 1;
 							maxNumberInit = 0;
-						}
+						} else if (Params.maxNumber > 1 && AskNumber >= Params.maxNumber) {
+								AskNumber = Params.maxNumber -1;
+								maxNumberInit = 0;
+						} 
 					} else {
 						if (AskNumber != 1) {
 								AskNumber = AskNumber -1;

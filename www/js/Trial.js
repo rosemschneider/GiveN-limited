@@ -109,12 +109,12 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		Params.Tracker[AskNumber-1][1]++; //update NTrials for every trial
 		if (Ans == AskNumber) { //if correct
 			Params.Tracker[AskNumber-1][2]++; //increment NCorrect by 1
-		} 
-	} else { //if answer is not correct
-		Params.Tracker[AskNumber-1][3]++; //regardless, increment NInc by 1
-		if (Ans <= HighestTestNumber) { //if the number given is within test range
-			Params.Tracker[Ans-1][4]++; //also update false
+		} else { //if answer is not correct
+			Params.Tracker[AskNumber-1][3]++; //regardless, increment NInc by 1
+			if (Ans <= HighestTestNumber) { //if the number given is within test range
+				Params.Tracker[Ans-1][4]++; //also update false
 			}
+		}
 	}
 
 	//rename these so the logic is a little easier to read

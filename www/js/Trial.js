@@ -35,29 +35,29 @@ function zeros(dimension1, dimension2) {
     return a;
 }
 
-function size(matrix) {
-    return matrix.length;
-}
+// function size(matrix) {
+//     return matrix.length;
+// }
 
-function get(matrix, dimension1, dimension2) { //this is a function converted from matlab
-    if (dimension1 == ':') {//in matlab, : means get entire column
-        var vector = [];
-        for (var i = 0; i < matrix.length; i++) {
-            vector[i] = matrix[i][dimension2 - 1];
-        }
-        return vector;
-    } else {
-        return matrix[dimension1 - 1][dimension2 - 1];
-    }
-}
+// function get(matrix, dimension1, dimension2) { //this is a function converted from matlab
+//     if (dimension1 == ':') {//in matlab, : means get entire column
+//         var vector = [];
+//         for (var i = 0; i < matrix.length; i++) {
+//             vector[i] = matrix[i][dimension2 - 1];
+//         }
+//         return vector;
+//     } else {
+//         return matrix[dimension1 - 1][dimension2 - 1];
+//     }
+// }
 
-function max(vector) {
-    var biggest = -1;
-    for (var i = 0; i < vector.length; i++) {
-        if (vector[i] > biggest) biggest = vector[i];
-    }
-    return biggest;
-}
+// function max(vector) {
+//     var biggest = -1;
+//     for (var i = 0; i < vector.length; i++) {
+//         if (vector[i] > biggest) biggest = vector[i];
+//     }
+//     return biggest;
+// }
 
 function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonTitratedSet) {
     //Asks for Subject ID and creates a file to save child's data.
@@ -208,31 +208,34 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		}
 
 		// now we're going to check and see if this works for KL assignment
-		if (KLMatrix[AskNumber-1] == 1 && AskNumber == HighestTestNumber) {
-			//if child is succeeding on N
-		// 		//And if that N is the Highest Test number
-		// 		//Set KL to this
-	            KL = HighestTestNumber;
-	            Params.KL = HighestTestNumber;
-	        } else if (KLMatrix[AskNumber-1] == 1 && KLMatrix[AskNumber] == -1) {
-	        	//if child is succeeding on N, but they fail on N+1,
-	        	//Set their KL to N
-	        	KL = AskNumber;
-	        	Params.KL = AskNumber;
-	        } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
-	        	// and if n= 1, sets KL to 0 (since child is failing at 1)
-	        	if (AskNumber == 1) {
-	        		KL = 0;
-	        		Params.KL = 0;
-	        	} else if (KLMatrix[AskNumber - 2] == 1){ //if the child is failing criteria for n
-	        		//but if they succeeded on the number below that AskNumber
-	             	//Set their KL to Asknumber -1
-	             	KL = AskNumber-1;
-	             	Params.KL = AskNumber-1;
-	        	} else {
-	        		KL = 20;
-	        	}
-	        }
+		// this is for the titrated version, which will check on every trial
+			if (KL == 20 && type == "titrated") {
+				if (KLMatrix[AskNumber-1] == 1 && AskNumber == HighestTestNumber) {
+					//if child is succeeding on N
+				// 		//And if that N is the Highest Test number
+				// 		//Set KL to this
+			            KL = HighestTestNumber;
+			            Params.KL = HighestTestNumber;
+			        } else if (KLMatrix[AskNumber-1] == 1 && KLMatrix[AskNumber] == -1) {
+			        	//if child is succeeding on N, but they fail on N+1,
+			        	//Set their KL to N
+			        	KL = AskNumber;
+			        	Params.KL = AskNumber;
+			        } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
+			        	// and if n= 1, sets KL to 0 (since child is failing at 1)
+			        	if (AskNumber == 1) {
+			        		KL = 0;
+			        		Params.KL = 0;
+			        	} else if (KLMatrix[AskNumber - 2] == 1){ //if the child is failing criteria for n
+			        		//but if they succeeded on the number below that AskNumber
+			             	//Set their KL to Asknumber -1
+			             	KL = AskNumber-1;
+			             	Params.KL = AskNumber-1;
+			        	} else {
+			        		KL = 20;
+			        	}
+			        }
+		    }
 	}
 
 	//the following is setting a max number based on either the current ask number
@@ -311,7 +314,42 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			}
 		}
 	
-
+		//non-titrated logic
+		//non-titrated set is already shuffled, we just need to progress through the array
+		if (type == "non-titrated") {
+			if (Params.CurrTrial < nonTitratedSet.length;) { //if we still have numbers to test
+				AskNumber = nonTitratedSet[Params.CurrTrial]; //then we are going to progress
+			} else { //we are going to evaluated the evidence and assign a KL, which ends the task
+				//KL for non-titrated will be assigned based on highest contiguous number
+				//for which a child generated the correct response
+				//i.e., if child succeeds on 1,2, fails on 3, but succeeds on 4, then child is a 2-knower
+				for (var k = 0; k <= KLMatrix.length; k++) {
+					//go through each number in the array
+					if (KLMatrix[k] == 1) { //if current number is known
+						//check the number above
+						if (KLMatrix[k+1] == 1) {
+							continue;
+							// if the number above is also known, keep going
+							//until you get a number that is not known
+						} else if (KLMatrix[k+1] == -1) { 
+							//if this number is not known, the child's KL is the number associated with k
+							//i.e., k+1
+							KL = k+1; 
+							Params.KL = k+1;
+						} else if (k == KLMatrix.length && KLMatrix[k] == 1) {
+							//if we've gotten to the end without any -1s
+							//then the child knows the highest test number
+							KL = k;
+							Params.KL = k;
+						}
+					} else if (k == 0 && KLMatrix[k] == -1) {
+						//if the first number in KLMatrix is -1, child is non-knower
+						KL = 0;
+						Params.KL = 0;
+					}
+				} 
+			}
+		}
 				
 
 		

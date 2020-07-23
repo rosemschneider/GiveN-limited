@@ -136,22 +136,30 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	}
 
 	//rename these so the logic is a little easier to read
+	//Trials, successes, failures, and false for the Asknumber
 	NumTrials = Params.Tracker[AskNumber-1][1]; //number of trials asked about N
-	NumTrialsAnswer = Params.Tracker[Ans-1][1]; //number of trials asked about N (current ANSWER)
 	NumSuccesses = Params.Tracker[AskNumber-1][2]; //number of successes for N
-	NumSuccessesAnswer = Params.Tracker[Ans-1][2]; //number of successes for N (current ANSWER)
 	NumFailures = Params.Tracker[AskNumber-1][3]; //number of failures for N
-	NumFailuresAnswer = Params.Tracker[Ans-1][3]; //number of failures for N (current ANSWER)
 	NumFalseAskNumber = Params.Tracker[AskNumber-1][4]; //number of times N (current ask number) given falsely for another number
-	NumFalseAnswer = Params.Tracker[Ans-1][4]; //number of times N (current ANSWER) has been given falsely for another number
-
+	
+	//we also need to keep track of these for the answer, IF the answer is within the potential set of nums
+	if (Ans <= HighestTestNumber) {
+		NumTrialsAnswer = Params.Tracker[Ans-1][1]; //number of trials asked about N (current ANSWER)
+		NumSuccessesAnswer = Params.Tracker[Ans-1][2]; //number of successes for N (current ANSWER)
+		NumFailuresAnswer = Params.Tracker[Ans-1][3]; //number of failures for N (current ANSWER)
+		NumFalseAnswer = Params.Tracker[Ans-1][4]; //number of times N (current ANSWER) has been given falsely for another number
+	} else {
+		NumTrialsAnswer = null;
+		NumSuccessesAnswer = null;
+		NumFailuresAnswer = null;
+		NumFalseAnswer = null; 
+	}
+	
 
 	//Logic for updating KL Matrix
 	//This will be run when we have at least 3 trials
 	//For a given N (Current Ask Number), we will check whether this is enough evidence to update the KL Matrix
 	//TO-do; break this out into a separate function
-	//To-do; we will then need to hook this into logic of next number selection
-	//To-do; we will also need to hook this into logic of determining whether to assign KL
 
 	if (Params.CurrTrial >= 3) { //if we have at least 3 trials worth of data
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
@@ -177,39 +185,42 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//If they have been asked about number 3x and they have 0 successes, they do not know N
 			//Update KLMatrix for this asknumber to -1
 			KLMatrix[AskNumber-1] = -1;
-		} else if (NumFalseAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
-			//"False giver"
-			//This is checking based on the ANSWER given, because we also need to see if the
-			//child has met the criteria for NOT knowing the answer
-			//If, for the answer, they have given that N falsely more than once
-			//And if they have given that number falsely more than half of the time they have been asked
-			//They do not know the ANSWER N
-			//Set KLMatrix for the answer to -1
-			KLMatrix[Ans-1] = -1;
-		} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
-			//this is updating based on an incorrect answer
-			//if the child has falsely given that number in response to another number more than once
-			//and if the number of false gives outweighs successes
-			//the child does not know that N
-			//update KLMatrix for the answer based on this number
-			KLMatrix[Ans-1] = -1;
-		} else if(NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
-			//Also for answer - this takes into account successes and failures
-			//this will be triggered if they had previously shown evidence of knowing N, but then start to fail on N, or Give N falsely
-			KLMatrix[Ans-1] = -1;
-		} else if (NumFalseAnswer == 1 && NumSuccessesAnswer > 2 || NumFailuresAnswer >2) {
-			//this is to catch kids who had previously shown evidence of knowing N
-			//But then start giving N incorrectly for other numbers
-			//This will update KLMatrix to -1
-			//This takes into account both successes and failures
-			if(NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
-				KLMatrix[Ans-1]= -1;
+		} else if (Ans <= HighestTestNumber) {//if we need to update the tracker based on the answer
+			if (NumFalseAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
+				//"False giver"
+				//This is checking based on the ANSWER given, because we also need to see if the
+				//child has met the criteria for NOT knowing the answer
+				//If, for the answer, they have given that N falsely more than once
+				//And if they have given that number falsely more than half of the time they have been asked
+				//They do not know the ANSWER N
+				//Set KLMatrix for the answer to -1
+				KLMatrix[Ans-1] = -1;
+			} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
+				//this is updating based on an incorrect answer
+				//if the child has falsely given that number in response to another number more than once
+				//and if the number of false gives outweighs successes
+				//the child does not know that N
+				//update KLMatrix for the answer based on this number
+				KLMatrix[Ans-1] = -1;
+			} else if(NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+				//Also for answer - this takes into account successes and failures
+				//this will be triggered if they had previously shown evidence of knowing N, but then start to fail on N, or Give N falsely
+				KLMatrix[Ans-1] = -1;
+			} else if (NumFalseAnswer == 1 && NumSuccessesAnswer > 2 || NumFailuresAnswer >2) {
+				//this is to catch kids who had previously shown evidence of knowing N
+				//But then start giving N incorrectly for other numbers
+				//This will update KLMatrix to -1
+				//This takes into account both successes and failures
+				if(NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+					KLMatrix[Ans-1]= -1;
 			}
 		}
+	}
+}
 
 		// now we're going to check and see if this works for KL assignment
 		// this is for the titrated version, which will check on every trial
-			if (KL == 20 && type == "titrated") {
+			if (KL == 20 && type == "titrated") { 
 				if (KLMatrix[AskNumber-1] == 1 && AskNumber == HighestTestNumber) {
 					//if child is succeeding on N
 				// 		//And if that N is the Highest Test number
@@ -237,6 +248,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			        }
 		    }
 	}
+
 
 	//the following is setting a max number based on either the current ask number
 	//or the current response

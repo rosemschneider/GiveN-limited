@@ -51,13 +51,13 @@ function zeros(dimension1, dimension2) {
 //     }
 // }
 
-// function max(vector) {
-//     var biggest = -1;
-//     for (var i = 0; i < vector.length; i++) {
-//         if (vector[i] > biggest) biggest = vector[i];
-//     }
-//     return biggest;
-// }
+function max(vector) {
+    var biggest = -1;
+    for (var i = 0; i < vector.length; i++) {
+        if (vector[i] > biggest) biggest = vector[i];
+    }
+    return biggest;
+}
 
 function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonTitratedSet) {
     //Asks for Subject ID and creates a file to save child's data.

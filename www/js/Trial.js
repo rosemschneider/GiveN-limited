@@ -316,40 +316,35 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	
 		//non-titrated logic
 		//non-titrated set is already shuffled, we just need to progress through the array
+		//everything works except the KL assignment!
 		if (type == "non-titrated") {
 			if (Params.CurrTrial < nonTitratedSet.length) { //if we still have numbers to test
 				AskNumber = nonTitratedSet[Params.CurrTrial]; //then we are going to progress
-			} else { //we are going to evaluated the evidence and assign a KL, which ends the task
-				//KL for non-titrated will be assigned based on highest contiguous number
-				//for which a child generated the correct response
-				//i.e., if child succeeds on 1,2, fails on 3, but succeeds on 4, then child is a 2-knower
+			} else { //if we are on the last trial
 				for (var k = 0; k <= KLMatrix.length; k++) {
-					//go through each number in the array
-					if (KLMatrix[k] == 1) { //if current number is known
-						//check the number above
-						if (KLMatrix[k+1] == 1) {
-							continue;
-							// if the number above is also known, keep going
-							//until you get a number that is not known
-						} else if (KLMatrix[k+1] == -1) { 
-							//if this number is not known, the child's KL is the number associated with k
-							//i.e., k+1
-							KL = k+1; 
-							Params.KL = k+1;
-						} else if (k == KLMatrix.length && KLMatrix[k] == 1) {
-							//if we've gotten to the end without any -1s
-							//then the child knows the highest test number
-							KL = k;
-							Params.KL = k;
-						}
+					if (KLMatrix[k] == -1) {
+						//if we reach a number the child doesn't know
+						//then their KL is the number BELOW that number
+						KL = k-1;
+						Params.KL = k-1;
+						break;
 					} else if (k == 0 && KLMatrix[k] == -1) {
-						//if the first number in KLMatrix is -1, child is non-knower
+						//if the first number in the array (1) is not known
+						//then the child is a 0-knower
 						KL = 0;
 						Params.KL = 0;
+						break;
+					} else if (k == KLMatrix.length && KLMatrix[k] == 1) {
+						//if we've made it to the last number
+						//and they are all correct
+						//then child is that N-knower
+						KL = k+1;
+						Params.KL = k+1;
+						break;
 					}
-				} 
-			}
+				}
 		}
+	}
 				
 
 		

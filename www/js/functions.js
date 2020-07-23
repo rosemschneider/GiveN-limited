@@ -352,7 +352,7 @@ var giveN = {
 	abortTest: function () {
 	    var data = this.getTrialData();
 	    
-	    if (data.trialRows !=null && data.trialRows.length > 0 && confirm('Send partial data?')) {
+	    if (data.trialRows !=null && data.trialRows.length > 0 && confirm('Stop test and store partial data?')) {
 	        giveN.storeTrialResultData(knowerLevelResult.KL, "Partial data"); 
 	        $('#form1').submit();
 	    } else {
@@ -427,7 +427,7 @@ var giveN = {
     	        }
     	    }).done(function(data) {
                     giveN.setDataToSend([]);
-                    if (!background) alert("Data sent successfully.");
+                    if (!background) alert("Data sent!");
                     window.location.href ="../confirmation.html";
 
                     //clear local storage

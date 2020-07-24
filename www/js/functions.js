@@ -80,8 +80,6 @@ $(document).delegate("#doTestPage", "pageinit", function () {
             return false;
         }
     });
-    //focus on first field
-    document.getElementById('subjectResponseValue1').focus();
 
     subjectRequestTemplate = document.getElementById('subjectRequest').innerHTML;
 

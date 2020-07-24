@@ -72,6 +72,7 @@ function hideStartHighestRows() {
 
 /* Trials page load logic */
 $(document).delegate("#doTestPage", "pageinit", function () {
+    document.getElementById('subjectResponseValue1').focus();
     //Change the Enter key to go to next question, not finish
     $(window).keydown(function (event) {
         if (event.keyCode == 13) {
@@ -80,8 +81,7 @@ $(document).delegate("#doTestPage", "pageinit", function () {
             return false;
         }
     });
-    
-    document.getElementById('subjectResponseValue1').focus();
+
 
     subjectRequestTemplate = document.getElementById('subjectRequest').innerHTML;
 
@@ -113,6 +113,7 @@ $(document).delegate("#doTestPage", "pageinit", function () {
 
 /* Highest Count page load logic */
 $(document).delegate("#highestCountPage", "pageinit", function () {
+    document.getElementById('howHigh').focus();
     //Change the Enter key to finish
     $(window).keydown(function (event) {
         if (event.keyCode == 13) {

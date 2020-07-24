@@ -167,6 +167,9 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//If they have been asked about number 3x and they have 0 successes, they do not know N
 			//Update KLMatrix for this asknumber to -1
 			KLMatrix[AskNumber-1] = -1;
+		} else if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFailures + NumFalseAskNumber) < 2/3) {
+			//we need at least three trials worth of data to say child does not know N
+			KLMatrix[AskNumber-1] = -1;
 		} else if (Ans <= HighestTestNumber) {//if we need to update the tracker based on the answer
 			if (NumFalseAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
 				//"False giver"

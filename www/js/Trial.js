@@ -296,7 +296,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 							if (AskNumber + 1 < Params.maxNumber) {
 								AskNumber = AskNumber + 1;
 								maxNumberInit = 0;
-							} else if (AskNumber == Params.MaxNumber -1) {
+							} else if (AskNumber == Params.maxNumber -1) {
 								AskNumber = AskNumber - 1;
 							} else {
 								AskNumber = Params.maxNumber -1;

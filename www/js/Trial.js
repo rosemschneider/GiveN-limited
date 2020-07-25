@@ -52,7 +52,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     //Assigns dummy values to 3 variables used in the logic in the main part of
     //the program.
     HoldAskNumber= 100;
-    skipflag = 0;
+    
 
     // KL matrix is vector the length of highest test number. Each cell is set
     // to 0 by default. If we receive sufficient evidence that a child knows a
@@ -61,17 +61,6 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     // will change to a -1. If there is a +1 in the Nth position and a -1 in the
     // N+1th position, the program ends and the child is declared an N-knower (
     // because s/he knows N but does not know N+1.)
-
-    
-    //**    while (KL==20){ //KL is set to 20 at the beginning of the program. So basically this is saying, while we have not determined KL, keep going...
-    if (skipflag == 1) { //occasionally, we do not follow the standard order of up one number for correct, down one number for incorrect. In these cases skipflag is changed to 1.
-        AskNumber = HoldAskNumber;//forces ask number to HoldAskNumber
-        HoldAskNumber = 100;// resets our variable HoldAskNumber to dummy value 100.
-        skipflag = 0; //this sets skipflag back to 0; continues with 1 up 1 down
-    }
-    if (HoldAskNumber < 100) { 
-        skipflag = 1;
-    }
  
     // save number asked and number responded to Params.Trials
     Params.Trials[Params.CurrTrial-1] = [];
@@ -326,7 +315,6 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	
 		//non-titrated logic
 		//non-titrated set is already shuffled, we just need to progress through the array
-		//everything works except the KL assignment!
 		if (type == "nontitrated") {
 			if (Params.CurrTrial-1 < nonTitratedSet.length) { //if we still have numbers to test
 				AskNumber = nonTitratedSet[Params.CurrTrial-1]; //then we are going to progress

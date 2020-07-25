@@ -136,17 +136,27 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
 			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time
 			//they might know N - we're checking this below
-			if (NumSuccesses/(NumSuccesses + NumFailures + NumFalseAskNumber) < 2/3) {
-				//"Messy giver" - child who seems to know N, but also gives N for other numbers
-				//if they have correctly given N, but if they have also given that N falsely for another ask
-				//and if, of the times that they have given that N, they give falsely more than 1/2 of the time
+			if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFailures) < 2/3) {
+				//if we have at least 3 trials worth of data for that number
+				//and if the ratio of successes to (successes + failures) < 2/3
 				//they do not know N
 				//update the KLMatrix for this asknumber to -1
 				KLMatrix[AskNumber-1] = -1;
-			} else if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFailures + NumFalseAskNumber) >= 2/3) {
+			} else if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFailures) >= 2/3) {
 				//(NumSuccesses / (NumSuccesses + NumFalseAskNumber) >= 2/3)
-				//"Straightforward knower" - child who correctly gives N, and does not falsely give N
-				//If the child correctly gives N, and does not falsely give N more than half the time,
+				//First, we also need to make sure that this child is not falsely giving N more than 2/3 of the time
+				//when asked for another N
+				//so we need to calculate the number of trials the child has been asked about other Ns
+				//and the number of times that the child has falsely given that N
+				//we can calculate number of times child was asked about other Ns by taking current trial num, and subtracting the number of times asked
+				//about this N
+				if (NumFalseAskNumber/(Params.CurrTrial - NumTrials) >= 2/3) {
+					//if, of the number of times that a child has been asked about other Ns
+					//they have given that N falsely for other Ns more >= 2/3 of the time
+					//then they do not know N
+					KLMatrix[AskNumber-1] = -1;
+				} 
+				//If they are not falsely giving N for other numbers
 				//They know N
 				//Update the KLMatrix for this number to 1
 				KLMatrix[AskNumber-1] = 1;
@@ -156,8 +166,15 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//If they have been asked about number 3x and they have 0 successes, they do not know N
 			//Update KLMatrix for this asknumber to -1
 			KLMatrix[AskNumber-1] = -1;
-		} else if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFailures + NumFalseAskNumber) < 2/3) {
-			//we need at least three trials worth of data to say child does not know N
+		} else if (NumFalseAskNumber >= 2) {
+			//I think we want a blanket condition that if they have given N falsely
+			//when asked for other Ns at least two times
+			//they do not know N
+			KLMatrix[AskNumber-1] = -1;
+		} else if (NumTrials >=3 && NumSuccesses/(NumSuccesses+NumFailures) < 2/3) {
+			//finally, if we have at least 3 trials worth of data
+			//and if the number of successes + number of successes + failures < 2/3
+			//they do not know N
 			KLMatrix[AskNumber-1] = -1;
 		} else if (Ans <= HighestTestNumber) {//if we need to update the tracker based on the answer
 			if (NumFalseAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {

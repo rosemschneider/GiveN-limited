@@ -204,6 +204,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 						} 
 						//otherwise, they know N
 						KLMatrix[Ans-1] = 1;
+					}
 			} else if(NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
 				//Also for answer - this takes into account successes and failures
 				//this will be triggered if they had previously shown evidence of knowing N, but then start to fail on N, or Give N falsely

@@ -229,6 +229,12 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		// now we're going to check and see if this works for KL assignment
 		// this is for the titrated version, which will check on every trial
 			if (KL == 20 && type == "titrated") { 
+				if (StartNumber == 1 && KLMatrix[0] == -1) {
+					//add a check for if the start number is 1 & the first number in KLMatrix is -1
+					//this means that they are a 0-knower
+					KL = 0;
+					Params.KL = 0;
+				}
 				if (KLMatrix[AskNumber-1] == 1 && AskNumber == HighestTestNumber) {
 					//if child is succeeding on N
 				// 		//And if that N is the Highest Test number

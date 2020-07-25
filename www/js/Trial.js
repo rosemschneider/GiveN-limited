@@ -177,27 +177,38 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//they do not know N
 			KLMatrix[AskNumber-1] = -1;
 		} else if (Ans <= HighestTestNumber) {//if we need to update the tracker based on the answer
-			if (NumFalseAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
+			if (NumFalseAnswer >= 2) {
 				//"False giver"
-				//This is checking based on the ANSWER given, because we also need to see if the
-				//child has met the criteria for NOT knowing the answer
-				//If, for the answer, they have given that N falsely more than once
-				//And if they have given that number falsely more than half of the time they have been asked
-				//They do not know the ANSWER N
-				//Set KLMatrix for the answer to -1
+				//If they have falsely given N for another number at least twice
+				//they do not know N
 				KLMatrix[Ans-1] = -1;
-			} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFalseAnswer) < 2/3) {
-				//this is updating based on an incorrect answer
-				//if the child has falsely given that number in response to another number more than once
-				//and if the number of false gives outweighs successes
-				//the child does not know that N
-				//update KLMatrix for the answer based on this number
-				KLMatrix[Ans-1] = -1;
+			} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumTrialsAnswer) >= 2/3) {
+				//if the child has been asked about that answer in the past 
+				//and if of those times they have correctly given N at least 2/3 of the time 
+				//they might know N
+					if (NumTrialsAnswer >= 3 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer) < 2/3) {
+						//if they have 3 trials worth of data
+						//but if they have failed to correctly give N more than 2/3 of the time
+						//they do not know N
+						KLMatrix[Ans-1] = -1;
+					} else if (NumTrialsAnswer >= 3 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer) >= 2/3) {
+						//if they have at least 3 trials of data
+						//and if they have given N correctly at least 2/3 of the time
+						//they might know N
+						//but we need to check and make sure they are not falsely giving N for other numbers
+						if (NumFalseAnswer/(Params.CurrTrial - NumTrialsAnswer) >= 2/3) {
+							//if they have incorrectly given N more than 2/3 of the time
+							//in response to other Ns
+							//they do not know N
+							KLMatrix[Ans-1] = -1;
+						} 
+						//otherwise, they know N
+						KLMatrix[Ans-1] = 1;
 			} else if(NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
 				//Also for answer - this takes into account successes and failures
 				//this will be triggered if they had previously shown evidence of knowing N, but then start to fail on N, or Give N falsely
 				KLMatrix[Ans-1] = -1;
-			} else if (NumFalseAnswer == 1 && NumSuccessesAnswer > 2 || NumFailuresAnswer >2) {
+			} else if (NumFalseAnswer == 1 && NumSuccessesAnswer > 2 || NumFailuresAnswer > 2) {
 				//this is to catch kids who had previously shown evidence of knowing N
 				//But then start giving N incorrectly for other numbers
 				//This will update KLMatrix to -1

@@ -135,12 +135,16 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	if (Params.CurrTrial >= 3) {	//if we have at least 3 trials worth of data
 		//we want to check the false answer first, and check for incorrect before we check for correct
 		if (Ans <= HighestTestNumber) {//if we need to update the tracker based on the answer
-			if (NumFalseAnswer >= 2 || 
-				NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3 ||
-				NumFalseAnswer + NumFailuresAnswer >= 3 & NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+			if (NumFalseAnswer >= 2) {
 				//If they have falsely given N for another number at least twice
 				//they do not know N
 				KLMatrix[Ans-1] = -1;
+				continue;
+			} else if (NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+				//Also for answer - this takes into account successes and failures
+				//this will be triggered if they had previously shown evidence of knowing N, but then start to fail on N, or Give N falsely
+				KLMatrix[Ans-1] = -1;
+				continue;
 			} else if (NumFalseAnswer == 1 && NumSuccessesAnswer > 2 || NumFailuresAnswer > 2) {
 				//this is to catch kids who had previously shown evidence of knowing N
 				//But then start giving N incorrectly for other numbers
@@ -149,6 +153,9 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				if(NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
 					KLMatrix[Ans-1]= -1;
 				}
+				continue;
+			} else if (NumFalseAnswer + NumFailuresAnswer >= 3 & NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+				KLMatrix[Ans-1] = -1;
 			} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumTrialsAnswer) >= 2/3) {
 				//if the child has been asked about that answer in the past 
 				//and if of those times they have correctly given N at least 2/3 of the time 
@@ -321,7 +328,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 								maxNumberInit = 0;
 							} else if (AskNumber == Params.maxNumber -1) {
 								AskNumber = AskNumber - 1;
-								maxNumberInit = 0;
+								maxNumberInit = 0; 
 							} else {
 								AskNumber = Params.maxNumber -1;
 								maxNumberInit = 0;

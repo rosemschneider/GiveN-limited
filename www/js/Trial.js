@@ -138,7 +138,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			if (NumFalseAnswer >= 2 ) {
 				KLMatrix[Ans-1] = -1;
 			}
-			if (NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
+			if (NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer) < 2/3) {
 				//If they have falsely given N for another number at least twice
 				//they do not know N
 				KLMatrix[Ans-1] = -1;

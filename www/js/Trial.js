@@ -153,7 +153,6 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				if(NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
 					KLMatrix[Ans-1]= -1;
 				}
-				continue;
 			} else if (NumFalseAnswer + NumFailuresAnswer >= 3 & NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
 				KLMatrix[Ans-1] = -1;
 			} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumTrialsAnswer) >= 2/3) {

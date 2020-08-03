@@ -143,7 +143,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				//they do not know N
 				KLMatrix[Ans-1] = -1;
 			}
-			if (NumFalseAnswer == 1 && NumSuccessesAnswer > 2 || NumFailuresAnswer > 2) {
+			if (NumFalseAnswer == 1 && NumSuccessesAnswer >= 2 || NumFailuresAnswer >= 2) {
 				//this is to catch kids who had previously shown evidence of knowing N
 				//But then start giving N incorrectly for other numbers
 				//This will update KLMatrix to -1

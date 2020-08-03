@@ -139,12 +139,10 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				//If they have falsely given N for another number at least twice
 				//they do not know N
 				KLMatrix[Ans-1] = -1;
-				continue;
 			} else if (NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer + NumFalseAnswer) < 2/3) {
 				//Also for answer - this takes into account successes and failures
 				//this will be triggered if they had previously shown evidence of knowing N, but then start to fail on N, or Give N falsely
 				KLMatrix[Ans-1] = -1;
-				continue;
 			} else if (NumFalseAnswer == 1 && NumSuccessesAnswer > 2 || NumFailuresAnswer > 2) {
 				//this is to catch kids who had previously shown evidence of knowing N
 				//But then start giving N incorrectly for other numbers

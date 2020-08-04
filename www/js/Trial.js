@@ -333,14 +333,14 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 								maxNumberInit = 0;
 							}
 						} else if (AskNumber < Params.maxNumber) { //if the asknumber is less than the maxnumber
-							if (AskNumber < Params.maxNumber) { //if the ask number is less than the maxnumber
-								AskNumber = AskNumber - 1; //then go down
+							if (AskNumber == 1 && Params.maxNumber != 1) { // if the current number is 1 and the max number is not 1
+								AskNumber = AskNumber +1; //then we test 2
 								maxNumberInit = 0;
-							} else if (AskNumber == Params.maxNumber -1) { //if the current asknumber is 1 less than the maxnumber
+							} else if (AskNumber == Params.maxNumber -1) {//if the current asknumber is 1 less than the maxnumber
 								AskNumber = AskNumber - 1; //we will go down
-								maxNumberInit = 0; 
-							} else {
-								AskNumber = Params.maxNumber - 1;
+								maxNumberInit = 0;
+							} else  { //otherwise
+								AskNumber = AskNumber - 1; //then go down
 								maxNumberInit = 0;
 							}
 						} 

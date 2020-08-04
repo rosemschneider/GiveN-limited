@@ -320,7 +320,10 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				if (Ans != AskNumber) {
 					if (maxNumberInit == 1) { //if this is the first trial after we set the max number
 						if (AskNumber >= Params.maxNumber) {
-							if (Params.maxNumber == 1) {
+							if (AskNumber == 1 && Params.maxNumber != 1) { // if the current number is 1 and the max number is not 1
+								AskNumber = AskNumber +1; //then we test 2
+								maxNumberInit = 0;
+							} else if (Params.maxNumber == 1) {
 								//if the max number is one, we're going to ask for 1 again
 								AskNumber = 1;
 								maxNumberInit =0;

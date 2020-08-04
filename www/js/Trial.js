@@ -349,7 +349,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 								AskNumber = AskNumber -1; //we go down by 1
 						} else if (AskNumber == 1 && AskNumber + 1 < Params.maxNumber) { //if the current N is 1, we want to go up, but only if that's less than the maxnumber
 								AskNumber = AskNumber+1;
-						} else if (maxNumber == 1) { //if the maxnumber is 1, we just test 1 again
+						} else if (Params.maxNumber == 1) { //if the maxnumber is 1, we just test 1 again
 								AskNumber = AskNumber;
 						} else if (AskNumber == 1 & AskNumber + 1 >= Params.maxNumber) { //if the max number is 2, and we're on 1
 								AskNumber = AskNumber; //test 1 again

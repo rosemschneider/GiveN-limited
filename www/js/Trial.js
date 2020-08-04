@@ -321,21 +321,23 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 					if (maxNumberInit == 1) { //if this is the first trial after we set the max number
 						if (AskNumber >= Params.maxNumber) {
 							if (Params.maxNumber == 1) {
+								//if the max number is one, we're going to ask for 1 again
 								AskNumber = 1;
 								maxNumberInit =0;
 							} else {
+								//otherwise, we're going to go one less than the maxnumber
 								AskNumber = Params.maxNumber -1;
 								maxNumberInit = 0;
 							}
-						} else if (AskNumber < Params.maxNumber) {
-							if (AskNumber + 1 < Params.maxNumber) {
-								AskNumber = AskNumber + 1;
+						} else if (AskNumber < Params.maxNumber) { //if the asknumber is less than the maxnumber
+							if (AskNumber < Params.maxNumber) { //if the ask number is less than the maxnumber
+								AskNumber = AskNumber - 1; //then go down
 								maxNumberInit = 0;
-							} else if (AskNumber == Params.maxNumber -1) {
-								AskNumber = AskNumber - 1;
+							} else if (AskNumber == Params.maxNumber -1) { //if the current asknumber is 1 less than the maxnumber
+								AskNumber = AskNumber - 1; //we will go down
 								maxNumberInit = 0; 
 							} else {
-								AskNumber = Params.maxNumber -1;
+								AskNumber = Params.maxNumber - 1;
 								maxNumberInit = 0;
 							}
 						} 

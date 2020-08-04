@@ -303,7 +303,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 						//if the current number is the highest test number, decrease by 1
 						AskNumber = AskNumber-1;
 					} 
-				} else if (Ans != AskNumber) {
+				} else if (Ans != AskNumber) { 
 					//if the child gets the current answer incorrect
 					if (AskNumber != 1) {
 					//if the current trial is not 1, decrease AskNumber by 1
@@ -344,23 +344,23 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 								maxNumberInit = 0;
 							}
 						} 
-					} else {
-						if (AskNumber != 1) {
-								AskNumber = AskNumber -1;
-						} else if (AskNumber == 1 && AskNumber + 1 < Params.maxNumber) {
+					} else { //if this is not the first time after we've set a max number
+						if (AskNumber != 1) { //if the current N is not 1
+								AskNumber = AskNumber -1; //we go down by 1
+						} else if (AskNumber == 1 && AskNumber + 1 < Params.maxNumber) { //if the current N is 1, we want to go up, but only if that's less than the maxnumber
 								AskNumber = AskNumber+1;
-						} else if (maxNumber == 1) {
+						} else if (maxNumber == 1) { //if the maxnumber is 1, we just test 1 again
 								AskNumber = AskNumber;
 						}
 					}
-				} else if (Ans == AskNumber) {
-					if (AskNumber+1 < Params.maxNumber) {
+				} else if (Ans == AskNumber) { //if the child is correct
+					if (AskNumber+1 < Params.maxNumber) { //if we can go up, we will
 							AskNumber = AskNumber+1;
-					} else if (AskNumber == HighestTestNumber) {
+					} else if (AskNumber == HighestTestNumber) { //if current N is the highest test number, we go down 1
 							AskNumber = AskNumber-1;
-					} else if (AskNumber +1 >= Params.maxNumber) {
+					} else if (AskNumber +1 >= Params.maxNumber) { //if going up would put us out of range of the maxnumber, then go down
 							AskNumber = AskNumber-1;
-					}
+					}	
 				}
 			}
 		}

@@ -164,14 +164,14 @@
             <div id="languageOfSession" data-role="collapsible">
               <h2>Touch to choose: </h2>
 
-              <label><input type="radio" name="languageOfSession" checked="checked" data-val="English" />English</label>
-              <label><input type="radio" name="languageOfSession" data-val="French" />French</label>
-              <label><input type="radio" name="languageOfSession" data-val="Spanish" />Spanish</label>
-              <label><input type="radio" name="languageOfSession" data-val="Mandarin" />Mandarin</label>
-              <label><input type="radio" name="languageOfSession" data-val="Japanese" />Japanese</label>
-              <label><input type="radio" name="languageOfSession" data-val="German" />German</label>
-              <label><input type="radio" name="languageOfSession" data-val="Italian" />Italian</label>
-              <label><input type="radio" name="languageOfSession" id="languageOfSessionOther" data-val="Other" />Other</label>
+              <label><input type="checkbox" name="languageOfSession" checked="checked" data-val="English" />English</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="French" />French</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="Spanish" />Spanish</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="Mandarin" />Mandarin</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="Japanese" />Japanese</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="German" />German</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="Italian" />Italian</label>
+              <label><input type="checkbox" name="languageOfSession" id="languageOfSessionOther" data-val="Other" />Other</label>
               <label>Other: </label><input id="otherLanguageOfSession" name="otherLanguageOfSession" type="text" onfocus="$('#languageOfSessionOther').prop('checked', true).change(); $('input[name=languageOfSession]').checkboxradio('refresh')" />
             </div>
             <!--

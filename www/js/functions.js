@@ -89,10 +89,10 @@ $(document).delegate("#doTestPage", "pageinit", function () {
     Params.Tracker = [];
     Params.maxNumber = null;
     Params.CurrTrial = 1;
-    Params.KL = 20;
+    Params.KL = -1000;
     currentMockQuestion = 0;
     nextAsk = null;
-    knowerLevelResult.KL = 20;//reset it, so that script doesnt think we've finished prematurely
+    knowerLevelResult.KL = -1000;//reset it, so that script doesnt think we've finished prematurely
 
     var trialData = JSON.parse(window.localStorage.getItem("giveN.trialData"));
 

@@ -6,7 +6,7 @@ var knowerLevelResult = {};//we'll get back the result of the test for each iter
 var Params = {}; 
 
 
-var KL = 20;
+var KL = -1000;
 
 var trackerInit = 0;
 var updateTrackerInit = 0;
@@ -79,7 +79,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     if (trackerInit == 0) {
 	    //Make an array for tracking NCorrect, etc. 
 		Params.Tracker = [];
-		Params.KL = 20;
+		Params.KL = -1000;
 
 		for (var i = 1; i <= HighestTestNumber; i++) {
 			Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
@@ -185,12 +185,6 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//they do not know N
 			KLMatrix[AskNumber-1] = -1;
 		}
-		if (NumTrials >=3 && NumSuccesses/(NumSuccesses+NumFailures) < 2/3) {
-			//if we have at least 3 trials worth of data
-			//and if the number of successes + number of successes + failures < 2/3
-			//they do not know N
-			KLMatrix[AskNumber-1] = -1;
-		}
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
 			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time
 			//they might know N - we're checking this below
@@ -214,18 +208,14 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 					//then they do not know N
 					KLMatrix[AskNumber-1] = -1;
 				}
-				KLMatrix[AskNumber-1] = 1;
+				KLMatrix[AskNumber-1] = 1;//otherwise, they know N
 			}
 		}
 	}
 
-
-	
-	
-
-		// now we're going to check and see if this works for KL assignment
+		// now we're going to assign KLs
 		// this is for the titrated version, which will check on every trial
-			if (KL == 20 && type == "titrated") { 
+			if (KL == -1000 && type == "titrated") { 
 				if (StartNumber == 1 && KLMatrix[0] == -1) {
 					//add a check for if the start number is 1 & the first number in KLMatrix is -1
 					//this means that they are a 0-knower
@@ -238,26 +228,26 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				// 		//Set KL to this
 			            KL = HighestTestNumber;
 			            Params.KL = HighestTestNumber;
-			        } else if (KLMatrix[AskNumber-1] == 1 && KLMatrix[AskNumber] == -1) {
-			        	//if child is succeeding on N, but they fail on N+1,
-			        	//Set their KL to N
-			        	KL = AskNumber;
-			        	Params.KL = AskNumber;
-			        } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
-			        	// and if n= 1, sets KL to 0 (since child is failing at 1)
-			        	if (AskNumber == 1) {
-			        		KL = 0;
-			        		Params.KL = 0;
-			        	} else if (KLMatrix[AskNumber - 2] == 1){ //if the child is failing criteria for n
-			        		//but if they succeeded on the number below that AskNumber
-			             	//Set their KL to Asknumber -1
-			             	KL = AskNumber-1;
-			             	Params.KL = AskNumber-1;
-			        	} else {
-			        		KL = 20;
-			        	}
-			        }
-		    	}
+			    } else if (KLMatrix[AskNumber-1] == 1 && KLMatrix[AskNumber] == -1) {
+		        	//if child is succeeding on N, but they fail on N+1,
+		        	//Set their KL to N
+		        	KL = AskNumber;
+		        	Params.KL = AskNumber;
+		        } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
+		        	// and if n= 1, sets KL to 0 (since child is failing at 1)
+		        	if (AskNumber == 1) { 
+		        		KL = 0;
+		        		Params.KL = 0;
+		        	} else if (KLMatrix[AskNumber - 2] == 1){ //if the child is failing criteria for n
+		        		//but if they succeeded on the number below that AskNumber
+		             	//Set their KL to Asknumber -1
+		             	KL = AskNumber-1;
+		             	Params.KL = AskNumber-1;
+		        	} else { //otherwise, keep going...
+		        		KL =-1000;
+		        	}
+	        	}
+	    	}
 
 
 	//the following is setting a max number based on either the current ask number
@@ -276,7 +266,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//in the titrated version 
 	//Assumptions: If child demonstrates that they do not know N, numbers ABOVE that N will not be tested
 
-	if (KL == 20 && type == "titrated") {
+	if (KL == -1000 && type == "titrated") {
 		//set hold on ask number from the current trial
 		PreviousAskNumber = AskNumber; 
 		//if we have not determined the maximum number that a child knows, 
@@ -397,7 +387,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
         // a CP knowers and errors are more likely to result from simple
         // carelessness. This prints out "CP" in addition to numerical KL for KLs>4.
         var ie_KL = null;
-        if (KL > 4 && KL < 20) {
+        if (KL > 4 && KL != -1000) {
             ie_KL = 'CP';
         } else
             ie_KL = KL;

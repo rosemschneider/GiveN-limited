@@ -20,18 +20,16 @@
   <div data-role="page" data-cache="never" id="clearDataPage">
     <a href = "index.html" target = "_top"><img src="res/logo_give_n.png" alt="Give N" title="Give-N" height = "250"/></a>
     <div data-role="header">
-      <h1>Clear data?</h1>
+      <h1>Give-N App</h1>
     </div>
 
     <div role="main" class="ui-content">
-      <center>You have unsent data. Would you like to clear or send this data?</center>
+      <center>You have unsent data saved from a previous session. Would you like to clear or send this data?</center>
       <form id="userSelection" action="">
           <!--Put your inputs here -->
             <input type="button" value="Clear Data" name="clear" onclick="giveN.clearAllData()" />
             <input type="button" value="Send Data" onclick="giveN.sendData(giveN.getTrialData()); $('#form1').submit();" />
         </form>
-
-      </form>
     </div>
 
     <div data-role="footer" id="footer">

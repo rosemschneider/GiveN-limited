@@ -21,8 +21,13 @@
     <div data-role="header">
       <h1>Give-N app</h1>
     </div>
-
       <center>
+        <script>//redirect if there is saved data
+        if (window.localStorage.length > 0) {
+            window.location.replace("clearData.html");
+          }
+        </script>
+
         <p>Welcome to the UCSD Language and Development Lab Give-N app</p>
 
          <p>Please indicate whether you are a parent or a researcher</p>

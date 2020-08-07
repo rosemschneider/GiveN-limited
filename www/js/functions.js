@@ -373,6 +373,7 @@ var giveN = {
         window.localStorage.clear();
         var data = this.getTrialData();
         alert("Data cleared");
+        $.mobile.navigate('index.html');
     },
 
     clearDataEnd: function(){

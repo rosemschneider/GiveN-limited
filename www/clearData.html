@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Give-N</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+  <link href="css/site.css" rel="stylesheet" />
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+  <script type="text/javascript" src="js/functions.js"></script>
+  <script type="text/javascript" src="js/Trial.js"></script>
+</head>
+
+<body>
+  <!--<h1>Welcome to Give N</h1>-->
+
+  <div data-role="page" data-cache="never" id="clearDataPage">
+    <a href = "index.html" target = "_top"><img src="res/logo_give_n.png" alt="Give N" title="Give-N" height = "250"/></a>
+    <div data-role="header">
+      <h1>Clear data?</h1>
+    </div>
+
+    <div role="main" class="ui-content">
+      <center>You have unsent data. Would you like to clear or send this data?</center>
+      <form id="userSelection" action="">
+          <!--Put your inputs here -->
+            <input type="button" value="Clear Data" name="clear" onclick="giveN.clearAllData()" />
+            <input type="button" value="Send Data" onclick="giveN.sendData(giveN.getTrialData()); $('#form1').submit();" />
+        </form>
+
+      </form>
+    </div>
+
+    <div data-role="footer" id="footer">
+
+    </div>
+  </div>
+</body>
+
+</html>

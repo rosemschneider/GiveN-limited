@@ -89,10 +89,10 @@ $(document).delegate("#doTestPage", "pageinit", function () {
     Params.Tracker = [];
     Params.maxNumber = null;
     Params.CurrTrial = 1;
-    Params.KL = -1000;
+    Params.KL = 1000;
     currentMockQuestion = 0;
     nextAsk = null;
-    knowerLevelResult.KL = -1000;//reset it, so that script doesnt think we've finished prematurely
+    knowerLevelResult.KL = 1000;//reset it, so that script doesnt think we've finished prematurely
 
     var trialData = JSON.parse(window.localStorage.getItem("giveN.trialData"));
 
@@ -241,7 +241,7 @@ function next() {
         }
       //  if (Params.trialType == 'titrated') {
 
-        nextAsk = GiveN(0, 20, response, ask, Params, knowerLevelResult, Params.trialType, nonTitratedSet);
+        nextAsk = GiveN(0, 1000, response, ask, Params, knowerLevelResult, Params.trialType, nonTitratedSet);
 //        } else {
 //            Params.Trials[Params.CurrTrial - 1] = [];
 //            Params.Trials[Params.CurrTrial - 1][1 - 1] = AskNumber;
@@ -271,7 +271,7 @@ function next() {
             
         //}
         addRow('dataTable', ask, responseInitial, response);
-        if (knowerLevelResult.KL < 20) {
+        if (knowerLevelResult.KL < 1000) {
             //finished
         //    document.getElementsByName("KL")[0].value = knowerLevelResult.KL;
             //    document.getElementsByName("ie_KL")[0].value = knowerLevelResult.ie_KL;

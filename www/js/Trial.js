@@ -6,7 +6,7 @@ var knowerLevelResult = {};//we'll get back the result of the test for each iter
 var Params = {}; 
 
 
-var KL = -1000;
+var KL = 1000;
 
 var trackerInit = 0;
 var updateTrackerInit = 0;
@@ -79,7 +79,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
     if (trackerInit == 0) {
 	    //Make an array for tracking NCorrect, etc. 
 		Params.Tracker = [];
-		Params.KL = -1000;
+		Params.KL = 1000;
 
 		for (var i = 1; i <= HighestTestNumber; i++) {
 			Params.Tracker[i-1] = [i, 0, 0, 0, 0]; //[N, NTrials, NCorrect, NInc, NFalse];
@@ -215,7 +215,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 
 		// now we're going to assign KLs
 		// this is for the titrated version, which will check on every trial
-			if (KL == -1000 && type == "titrated") { 
+			if (KL == 1000 && type == "titrated") { 
 				if (StartNumber == 1 && KLMatrix[0] == -1) {
 					//add a check for if the start number is 1 & the first number in KLMatrix is -1
 					//this means that they are a 0-knower
@@ -244,7 +244,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		             	KL = AskNumber-1;
 		             	Params.KL = AskNumber-1;
 		        	} else { //otherwise, keep going...
-		        		KL =-1000;
+		        		KL =1000;
 		        	}
 	        	}
 	    	}
@@ -266,7 +266,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//in the titrated version 
 	//Assumptions: If child demonstrates that they do not know N, numbers ABOVE that N will not be tested
 
-	if (KL == -1000 && type == "titrated") {
+	if (KL == 1000 && type == "titrated") {
 		//set hold on ask number from the current trial
 		PreviousAskNumber = AskNumber; 
 		//if we have not determined the maximum number that a child knows, 
@@ -387,7 +387,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
         // a CP knowers and errors are more likely to result from simple
         // carelessness. This prints out "CP" in addition to numerical KL for KLs>4.
         var ie_KL = null;
-        if (KL > 4 && KL != -1000) {
+        if (KL > 4 && KL < 1000) {
             ie_KL = 'CP';
         } else
             ie_KL = KL;

@@ -134,23 +134,17 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 
 	
 	if (Params.CurrTrial >= 2) { //if we have at least two trials worth of data
-		if (Ans <= HighestTestNumber) {//if we need to update the tracker based on the answer
+		if (Ans <= HighestTestNumber && Ans != AskNumber) {//if we need to update the tracker based on the answer if the child gets N incorrect
 			if (NumFalseAnswer >= 2 ) {
 				KLMatrix[Ans-1] = -1;
-				break;
-			}
-			if (NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer) < 2/3) {
+			} else if (NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer) < 2/3) {
 				//If they have falsely given N for another number at least twice
 				//they do not know N
 				KLMatrix[Ans-1] = -1;
-				break;
-			}
-			if (NumFalseAnswer + NumFailuresAnswer >= 3 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer) < 2/3) { 
+			} else if (NumFalseAnswer + NumFailuresAnswer >= 3 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer) < 2/3) { 
 				//this is to catch kids who are bombing a response
 				KLMatrix[Ans-1] = -1;
-				break;
-			}
-			if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumTrialsAnswer) >= 2/3) {
+			} else if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumTrialsAnswer) >= 2/3) {
 				//if the child has been asked about that answer in the past 
 				//and if of those times they have correctly given N at least 2/3 of the time 
 				//they might know N
@@ -175,26 +169,8 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 					}
 			}
 		}
-		if (NumTrials >= 2 && NumSuccesses == 0) {
-			//if the child has been asked about this particular number at least 2x
-			//and has failed 2x, it's likely they don't know N
-			KLMatrix[AskNumber-1] = -1;
-			break;
-		}
-		if (NumFalseAskNumber >= 2) {
-			//I think we want a blanket condition that if they have given N falsely
-			//when asked for other Ns at least two times
-			//they do not know N
-			KLMatrix[AskNumber-1] = -1;
-			break;
-		}
-		if (NumTrials >2 && NumSuccesses/NumTrials < 2/3) {
-			//if they've been asked about N more than 2 times
-			//and if the ratio of successes to number of trials is less than 2/3
-			//child likely doesn't know N
-			KLMatrix[AskNumber-1] = -1;
-			break;
-		}
+		//regardless of whether the answer is right or wrong, do the following
+		//regardless of whether the answer is within the highest testnumber, do the following
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
 			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time
 			//they might know N - we're checking this below
@@ -212,7 +188,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				//and the number of times that the child has falsely given that N
 				//we can calculate number of times child was asked about other Ns by taking current trial num, and subtracting the number of times asked
 				//about this N
-				if (NumFalseAskNumber/(Params.CurrTrial - NumTrials) >= 2/3) {
+				if (NumSuccesses/(NumSuccesses+NumFalseAskNumber) < 2/3) {
 					//if, of the number of times that a child has been asked about other Ns
 					//they have given that N falsely for other Ns more >= 2/3 of the time
 					//then they do not know N
@@ -220,6 +196,20 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				}
 				KLMatrix[AskNumber-1] = 1;//otherwise, they know N
 			}
+		} else if (NumTrials >= 2 && NumSuccesses == 0) {
+			//if the child has been asked about this particular number at least 2x
+			//and has failed 2x, it's likely they don't know N
+			KLMatrix[AskNumber-1] = -1;
+		} else if (NumFalseAskNumber >= 2) {
+			//I think we want a blanket condition that if they have given N falsely
+			//when asked for other Ns at least two times
+			//they do not know N
+			KLMatrix[AskNumber-1] = -1;
+		} else if (NumTrials >2 && NumSuccesses/NumTrials < 2/3) {
+			//if they've been asked about N more than 2 times
+			//and if the ratio of successes to number of trials is less than 2/3
+			//child likely doesn't know N
+			KLMatrix[AskNumber-1] = -1;
 		}
 	}
 

@@ -137,15 +137,18 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		if (Ans <= HighestTestNumber) {//if we need to update the tracker based on the answer
 			if (NumFalseAnswer >= 2 ) {
 				KLMatrix[Ans-1] = -1;
+				break;
 			}
 			if (NumFalseAnswer > 1 && NumSuccessesAnswer / (NumSuccessesAnswer + NumFailuresAnswer) < 2/3) {
 				//If they have falsely given N for another number at least twice
 				//they do not know N
 				KLMatrix[Ans-1] = -1;
+				break;
 			}
 			if (NumFalseAnswer + NumFailuresAnswer >= 3 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer) < 2/3) { 
 				//this is to catch kids who are bombing a response
 				KLMatrix[Ans-1] = -1;
+				break;
 			}
 			if (NumTrialsAnswer > 1 && NumSuccessesAnswer/(NumSuccessesAnswer + NumTrialsAnswer) >= 2/3) {
 				//if the child has been asked about that answer in the past 
@@ -176,18 +179,21 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//if the child has been asked about this particular number at least 2x
 			//and has failed 2x, it's likely they don't know N
 			KLMatrix[AskNumber-1] = -1;
+			break;
 		}
 		if (NumFalseAskNumber >= 2) {
 			//I think we want a blanket condition that if they have given N falsely
 			//when asked for other Ns at least two times
 			//they do not know N
 			KLMatrix[AskNumber-1] = -1;
+			break;
 		}
 		if (NumTrials >2 && NumSuccesses/NumTrials < 2/3) {
 			//if they've been asked about N more than 2 times
 			//and if the ratio of successes to number of trials is less than 2/3
 			//child likely doesn't know N
 			KLMatrix[AskNumber-1] = -1;
+			break;
 		}
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
 			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time

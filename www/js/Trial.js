@@ -234,6 +234,11 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		        	//Set their KL to N
 		        	KL = AskNumber;
 		        	Params.KL = AskNumber;
+		        } else if (KLMatrix[Ans-1] == -1 && KLMatrix[Ans-2] == 1) {
+		        	//if the child is failing on the answer, but they have succeeded on the number 1 below that answer
+		        	//then set KL to number below answer 
+		        	KL = Ans-1;
+		        	Params.KL = Ans-1;
 		        } else if (KLMatrix[AskNumber-1] == -1) { //if child is failing on N
 		        	// and if n= 1, sets KL to 0 (since child is failing at 1)
 		        	if (AskNumber == 1) { 
@@ -247,7 +252,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		        	} else { //otherwise, keep going...
 		        		KL =1000;
 		        	}
-	        	}
+	        	} 
 	    	}
 
 

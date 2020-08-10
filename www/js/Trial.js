@@ -172,15 +172,15 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 					}
 			}
 		}
+		if (NumTrials >= 2 && NumSuccesses == 0) {
+			//if the child has been asked about this particular number at least 2x
+			//and has failed 2x, it's likely they don't know N
+			KLMatrix[AskNumber-1] = -1;
+		}
 		if (NumFalseAskNumber >= 2) {
 			//I think we want a blanket condition that if they have given N falsely
 			//when asked for other Ns at least two times
 			//they do not know N
-			KLMatrix[AskNumber-1] = -1;
-		}
-		if (NumTrials >1 && NumSuccesses/(NumSuccesses+NumTrials) < 2/3) {
-			//if we have asked about a number more than once, and the child has failed more than they have succeeded
-			//it's likely that they do not know N
 			KLMatrix[AskNumber-1] = -1;
 		}
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {

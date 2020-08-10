@@ -257,7 +257,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//if so, we are not testing any numbers beyond this in the TITRATED version
 	if (KLMatrix[AskNumber-1] == -1) { //if the current number is not known
 		if (KLMatrix[Ans-1] == -1) { //if the answer is also unknown
-			Params.maxNumber = Math.min(KLMatrix[AskNumber-1], KLMatrix[Ans-1]); //take the min of these two numbers
+			Params.maxNumber = Math.min(AskNumber, Ans); //take the min of these two numbers
 			maxNumberInit = 1;
 		} else {
 			Params.maxNumber = AskNumber; //if the Ans is still 0 or is 1

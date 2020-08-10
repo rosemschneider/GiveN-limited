@@ -133,7 +133,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//TO-do; break this out into a separate function
 
 	
-	if (Params.CurrTrial >= 3) {
+	if (Params.CurrTrial >= 2) { //if we have at least two trials worth of data
 		if (Ans <= HighestTestNumber) {//if we need to update the tracker based on the answer
 			if (NumFalseAnswer >= 2 ) {
 				KLMatrix[Ans-1] = -1;
@@ -151,13 +151,13 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 				//if the child has been asked about that answer in the past 
 				//and if of those times they have correctly given N at least 2/3 of the time 
 				//they might know N
-					if (NumTrialsAnswer >= 3 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer) < 2/3) {
-						//if they have 3 trials worth of data
+					if (NumTrialsAnswer >= 2 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer) < 2/3) {
+						//if they have 2 trials worth of data
 						//but if they have failed to correctly give N more than 2/3 of the time
 						//they do not know N
 						KLMatrix[Ans-1] = -1;
-					} else if (NumTrialsAnswer >= 3 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer) >= 2/3) {
-						//if they have at least 3 trials of data
+					} else if (NumTrialsAnswer >= 2 && NumSuccessesAnswer/(NumSuccessesAnswer + NumFailuresAnswer) >= 2/3) {
+						//if they have at least 2 trials of data
 						//and if they have given N correctly at least 2/3 of the time
 						//they might know N
 						//but we need to check and make sure they are not falsely giving N for other numbers
@@ -172,13 +172,6 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 					}
 			}
 		}
-
-		if (NumTrials == 3 && NumSuccesses == 0) {
-			//"straightforward failure"
-			//If they have been asked about number 3x and they have 0 successes, they do not know N
-			//Update KLMatrix for this asknumber to -1
-			KLMatrix[AskNumber-1] = -1;
-		} 
 		if (NumFalseAskNumber >= 2) {
 			//I think we want a blanket condition that if they have given N falsely
 			//when asked for other Ns at least two times
@@ -188,15 +181,15 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
 			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time
 			//they might know N - we're checking this below
-			if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFailures) < 2/3) {
-				//if we have at least 3 trials worth of data for that number
+			if (NumTrials >= 2 && NumSuccesses/(NumSuccesses + NumFailures) < 2/3) {
+				//if we have at least 2 trials worth of data for that number
 				//and if the ratio of successes to (successes + failures) < 2/3
 				//they do not know N
 				//update the KLMatrix for this asknumber to -1
 				KLMatrix[AskNumber-1] = -1;
-			} else if (NumTrials >= 3 && NumSuccesses/(NumSuccesses + NumFailures) >= 2/3) {
+			} else if (NumTrials >= 2 && NumSuccesses/(NumSuccesses + NumFailures) >= 2/3) {
 				//(NumSuccesses / (NumSuccesses + NumFalseAskNumber) >= 2/3)
-				//First, we also need to make sure that this child is not falsely giving N more than 2/3 of the time
+				//We also need to make sure that this child is not falsely giving N more than 2/3 of the time
 				//when asked for another N
 				//so we need to calculate the number of trials the child has been asked about other Ns
 				//and the number of times that the child has falsely given that N

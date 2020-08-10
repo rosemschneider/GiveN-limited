@@ -193,8 +193,9 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 					//they have given that N falsely for other Ns more >= 2/3 of the time
 					//then they do not know N
 					KLMatrix[AskNumber-1] = -1;
+				} else {
+					KLMatrix[AskNumber-1] = 1;//otherwise, they know N
 				}
-				KLMatrix[AskNumber-1] = 1;//otherwise, they know N
 			}
 		} else if (NumTrials >= 2 && NumSuccesses == 0) {
 			//if the child has been asked about this particular number at least 2x

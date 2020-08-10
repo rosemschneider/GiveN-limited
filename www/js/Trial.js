@@ -255,11 +255,16 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 	//or the current response
 	//it is, for every trial, checking the KL matrix, seeing if a -1 has been assigned
 	//if so, we are not testing any numbers beyond this in the TITRATED version
-	if (KLMatrix[AskNumber-1] == -1) {
-		Params.maxNumber = AskNumber;
-		maxNumberInit = 1;
-	} else if (KLMatrix[Ans-1] == -1) {
-		Params.maxNumber = Ans;
+	if (KLMatrix[AskNumber-1] == -1) { //if the current number is not known
+		if (KLMatrix[Ans-1] == -1) { //if the answer is also unknown
+			Params.maxNumber = Math.min(KLMatrix[AskNumber-1], KLMatrix[Ans-1]); //take the min of these two numbers
+			maxNumberInit = 1;
+		} else {
+			Params.maxNumber = AskNumber; //if the Ans is still 0 or is 1
+			maxNumberInit = 1; //then the current number is the max number
+		}
+	} else if (KLMatrix[Ans-1] == -1) { //if the answer is unknown
+		Params.maxNumber = Ans; //set max number to answer
 		maxNumberInit = 1;
 	} 
 

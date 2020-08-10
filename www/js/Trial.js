@@ -244,6 +244,14 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		        	if (AskNumber == 1) { 
 		        		KL = 0;
 		        		Params.KL = 0;
+		        	} else if (KLMatrix[Ans-1] == -1) { //if the child also does not know the answer
+		        		if (KLMatrix[Ans -2] == 0) { //and if we do not have data for the trial below
+		        			KL = 1000; //do not assign a KL
+		        		} else if (KLMatrix[Ans-2] == 1) { //if we do have data, and the child knows the number below the answer
+		        			//assign this as the KL
+		        			KL = Ans-1;
+		        			Params.KL = Ans-1;
+		        		}
 		        	} else if (KLMatrix[AskNumber - 2] == 1){ //if the child is failing criteria for n
 		        		//but if they succeeded on the number below that AskNumber
 		             	//Set their KL to Asknumber -1

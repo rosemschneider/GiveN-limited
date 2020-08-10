@@ -183,6 +183,12 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 			//they do not know N
 			KLMatrix[AskNumber-1] = -1;
 		}
+		if (NumTrials >2 && NumSuccesses/NumTrials < 2/3) {
+			//if they've been asked about N more than 2 times
+			//and if the ratio of successes to number of trials is less than 2/3
+			//child likely doesn't know N
+			KLMatrix[AskNumber-1] = -1;
+		}
 		if (NumTrials > 1 && NumSuccesses / NumTrials >= 2/3) {
 			//if they have been asked about N before, and if of the times that they have been asked, they are correct at least 2/3 of the time
 			//they might know N - we're checking this below

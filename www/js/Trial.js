@@ -158,7 +158,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 						//and if they have given N correctly at least 2/3 of the time
 						//they might know N
 						//but we need to check and make sure they are not falsely giving N for other numbers
-						if (NumFalseAnswer/(Params.CurrTrial - NumTrialsAnswer) >= 2/3) {
+						if (NumSuccessesAnswer/(NumSuccessesAnswer+NumFalseAnswer) < 2/3) {
 							//if they have incorrectly given N more than 2/3 of the time
 							//in response to other Ns
 							//they do not know N

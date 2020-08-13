@@ -26,16 +26,16 @@
     <!--titrated -->
     <div>
       <form action="mailto:roschnei@ucsd.edu" method="post" enctype="text/plain">
-        <input type="submit" value="Report trial logic or knower level bugs"></form>
+        <input type="submit" value="Report trial logic or knower level bugs here"></form>
     <p>When reporting trial logic or knower level assignment issues, please include the following:
       <ol>
-        <li>Version (Titrated or Non-Titrated)</li>
+        <li>Version (Titrated or Non-titrated)</li>
         <li>Number of items available; maximum number requested and starting number (if Titrated)</li>
         <li>A screenshot of trial history (generated at the bottom of test page)</li>
       </ol>
       <hr>
       <h3>Knower level assignment</h3>
-      <p>Knower level assignment for both the Titrated and Non-Titrated versions of Give-N are based on <a href = https://psycnet.apa.org/record/1992-38732-001>Wynn (1992)</a>.</p>
+      <p>Knower level assignment for both the Titrated and Non-titrated versions of Give-N are based on <a href = https://psycnet.apa.org/record/1992-38732-001>Wynn (1992)</a>.</p>
 
       <h4>Subset knowers</h4>
       <ol>
@@ -52,6 +52,7 @@
         <li>Then child is identified as CP knower. </li>
       </ol>
     </div>  
+
     <hr>
       <div>
       <h3>Titrated Give-N Trial Logic</h3>
@@ -59,14 +60,36 @@
         <li>Trial order is determined via a staircase function: for a given trial, if a child correctly gives <i>N</i>, the next number requested is <i>N</i>+1.</li>
         <li>If a child incorrectly gives <i>N</i>, the next number requested is <i>N</i>-1.</li> 
         <li>If the child demonstrates that they do not know a given N, the program will not test that N, or any number above that N.</li>
+        <li>In general, the program avoids trying to test the same number two times in a row. This means, e.g., if child succeeds on the maximum number (e.g., 6), the program will test 5, rather than testing 6 again.</li> 
       </ol>
     
     <div>
-      <h3>Non-Titrated Give-N Trial Logic</h3>
+      <h3>Non-titrated Give-N Trial Logic</h3>
       <ol>
         <li>Each number (specified by user in test setup) is tested three times, with a randomized order within each set (e.g., if the numbers to be tested are 1-5, program shuffles those numbers for first test, then shuffles again for second and third tests).</li>
         <li>Each number is tested three times, regardless of performance.</li>
       </ol>
+    </div>
+
+    <hr>
+    <div>
+      <h3>Logic of determining known and unknown numbers</h3>
+      <p>Both the Titrated and Non-titrated versions use the same logic for determining known and unknown numbers, drawn from Wynn (1992)</p>
+      <ol>
+        <li>For given <i>N</i>, if child correctly gives <i>N</i> at least 2/3 times when asked for <i>N</i>, <i>and</i>, when giving that <i>N</i> does not give it more than 2/3 of time in response to another number, the child knows <i>N</i>.</li>
+        <li>For given <i>N</i>, if child fails to correctly give <i>N</i> at least 2/3 times when asked for <i>N</i>, the child does not know <i>N</i>.</li>
+        <li>The program assumes that, if child falsely gives <i>N</i> for another number at least twice, the child does not know <i>N</i> (even if <i>N</i> has not been tested).</li>
+      </ol>
+    </div>
+
+      <h3>A note on knower level assignment in the Titrated version</h3>
+      <p>At the end of each trial, the program evaluates the evidence to determine whether a child can be assigned a knower level. If a knower level is assigned, the task ends. There are several conditions under which a knower level can be assigned: 
+      <ol>
+        <li>If the current <i>N</i> is known and is the highest testable number (N-knower).</li>
+        <li>If the current <i>N</i> is not known and is 1 (0-knower).</li>
+        <li>If the current <i>N</i> is known, and the number above it is not known (N-knower).</li>
+      </ol>
+      <p>There are several other conditions under which the program may or may not determine a knower level; these situations largely stem from a child failing two numbers at the same time (e.g., incorrectly giving 2 in response to 4). </p>
     </div>
 
 </body>

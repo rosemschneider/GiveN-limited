@@ -252,15 +252,30 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		        		KL = 0;
 		        		Params.KL = 0;
 		        	} else if (KLMatrix[AskNumber - 2] == 1){ //if the child is failing criteria for n
-		        		//but if they succeeded on the number below that AskNumber
+		             	if(KLMatrix[Ans-1] == -1 && Ans < AskNumber-1 && Ans <= 1) {
+		             		//if the child fails on N, has succeeded on N-1, but fails on N-2 or lower
+		             		if (Ans == 1) {
+		             			//if they have failed on 1
+		             			//set KL to 0
+		             			KL = 0;
+		             			Params.KL = 0;
+		             		} else if (KLMatrix[Ans-2] == 1) {
+		             			//if Ans != 1, we can check numbers below the answer
+		             			//if we have data for the trial below that, and child knows N
+		             			//set KL to that 
+		             			KL = Ans -1;
+		             			Params.KL = Ans-1;
+		             		} else {
+		             			//keep going
+		             			KL = 1000;
+		             		}
+		             	} else { 
+		             	//if they have not simultaneously failed a lower answer
+		             	//and if they succeeded on the number below that AskNumber
 		             	//Set their KL to Asknumber -1
-		             	KL = AskNumber-1;
-		             	Params.KL = AskNumber-1;
-		        	} else if (KLMatrix[AskNumber-1] == -1 && KLMatrix[Ans-1] == -1 && KLMatrix [AskNumber-2] ==1 ) {
-		        		//this is a catch for failures where kid simultaneously doesn't know current ask, and fails the answer as well
-		        		//we need to keep going and not assign a KL
-		        		//and then do the max number bit of code below
-		        		KL = 1000;
+			             	KL = AskNumber-1;
+			             	Params.KL = AskNumber-1;
+			             }
 		        	} else { //otherwise, keep going...
 		        		KL =1000;
 		        	}

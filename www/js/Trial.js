@@ -256,6 +256,11 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		             	//Set their KL to Asknumber -1
 		             	KL = AskNumber-1;
 		             	Params.KL = AskNumber-1;
+		        	} else if (KLMatrix[AskNumber-1] == -1 && KLMatrix[Ans-1] == -1 && KLMatrix [AskNumber-2] ==1 ) {
+		        		//this is a catch for failures where kid simultaneously doesn't know current ask, and fails the answer as well
+		        		//we need to keep going and not assign a KL
+		        		//and then do the max number bit of code below
+		        		KL = 1000;
 		        	} else { //otherwise, keep going...
 		        		KL =1000;
 		        	}

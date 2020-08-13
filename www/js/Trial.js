@@ -252,7 +252,7 @@ function GiveN(SubjID, KL, Ans, AskNumber, Params, KnowerLevelResult, type, nonT
 		        		KL = 0;
 		        		Params.KL = 0;
 		        	} else if (KLMatrix[AskNumber - 2] == 1){ //if the child is failing criteria for n
-		             	if(KLMatrix[Ans-1] == -1 && Ans < AskNumber-1 && Ans <= 1) {
+		             	if(KLMatrix[Ans-1] == -1 && Ans < AskNumber-1 && Ans >= 1) {
 		             		//if the child fails on N, has succeeded on N-1, but fails on N-2 or lower
 		             		if (Ans == 1) {
 		             			//if they have failed on 1

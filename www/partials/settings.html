@@ -54,26 +54,26 @@
           </div>
 
         </div>
-        <div class="row">
+       <div class="row">
           <div class="col-md-3">
-            <label for="languagesSpoken">
-                        Languages spoken by child:
-                    </div>
-                    <div class="col-md-9">
-                        <select multiple="multiple" name="languagesSpoken" size="4" onchange="if(this.value=='Other') document.getElementById('otherLanguageSpoken').style.display='block';">
-                            <option>English</option>
-                            <option>French</option>
-                            <option>Spanish</option>
-                            <option>Mandarin</option>
-                            <option>Japanese</option>
-                            <option>German</option>
-                            <option>Italian</option>
-                            <option value="Other">Other (please enter)</option>
-                        </select>
-                        <input id="otherLanguageSpoken" name="otherLanguageSpoken" style="display: none;" type="text" />
+            <label for="languagesSpoken">Languages spoken by child:</label>
+          </div>
+          <div class="col-md-9">
 
-                    </div>
-                </div>
+            <div id="languagesSpoken" data-role="collapsible">
+              <h2>Please select: </h2>
+
+              <label><input type="checkbox" name="languagesSpoken1" checked="checked" data-val="English"/>English</label>
+              <label><input type="checkbox" name="languagesSpoken2"  data-val="French" />French</label>
+              <label><input type="checkbox" name="languagesSpoken3"  data-val="Spanish"/>Spanish</label>
+              <label><input type="checkbox" name="languagesSpoken4" data-val="Mandarin" />Mandarin</label>
+              <label><input type="checkbox" name="languagesSpoken5"  data-val="Japanese"/>Japanese</label>
+              <label><input type="checkbox" name="languagesSpoken6"  data-val="German"/>German</label>
+              <label><input type="checkbox" name="languagesSpoken7"  data-val="Italian"/>Italian</label>
+
+              <label>Other: </label><input id="otherLanguageSpoken" name="otherLanguageSpoken" type="text" />
+            </div>
+          </div>
                 <div class="row">
                     <div class="col-md-3">
                         <label for="languageOfTrial">Language used for this trial:</label>

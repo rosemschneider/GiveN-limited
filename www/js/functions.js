@@ -382,6 +382,12 @@ var giveN = {
         $.mobile.navigate('index.html');
     },
 
+    clearDataEndNo: function(){
+        window.localStorage.clear();
+        var data = this.getTrialData();
+        $.mobile.navigate('../index.html');
+    },
+
     clearTrialRows: function(){
         //clear all non meta-data fields in data
         var data = this.getTrialData();
@@ -402,6 +408,7 @@ var giveN = {
         //then go back to dotest page
         $.mobile.navigate('partials/default.html');
     },
+
 
 	updateQueueStatus: function () {
         

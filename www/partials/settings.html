@@ -21,34 +21,37 @@
     <div role="main" class="ui-content">
 
       <form action="./default.html" name="default">
-        <div class="row">
+       <div class="row">
           <div class="col-md-3">
-            <label>Type:</label>
+            <label>Give-N Type: </label>
+            <b>Titrated Give-N</b> tests children using a stair-case procedure. E.g., if a child correctly gives 3, the next number tested is 4; if not, the next number is 2. Usually faster, but may test individual numbers fewer times.
+            <p>
+            <b>Non-titrated Give-N</b> tests a set of numbers (which can be specified below) three times each. Generally slower, but tests individual numbers multiple times.
+            </p>
           </div>
           <div class="col-md-9">
             <fieldset data-role="controlgroup">
+              <label> 
+                <input type="radio" name="trialType" id="trialType-1" value="titrated" checked="checked"  />
+                Titrated 
+              </label>
               <label>
-                                <input type="radio" name="trialType" id="trialType-1" value="titrated" checked="checked" onchange="$('.nontitratedRange').prop('disabled',this.checked).select('refresh');" />Titrated</label>
-              <label>
-                                <input type="radio" name="trialType" id="trialType-2" value="nontitrated" onchange="$('.nontitratedRange').prop('disabled',!this.checked).select('refresh');" />Non-titrated</label>
+                <input type="radio" name="trialType" id="trialType-2" value="nontitrated" />
+                Non-titrated
+              </label>
               <div id="nontitratedRange" data-role="collapsible">
                 <h2>Non-titrated number range:</h2>
-                <!-- <input class="nontitratedRange" type="text" id="nontitratedRangeLow" name="nontitratedRangeLow" size="3" value="1" />
-                                -
-				<input class="nontitratedRange" type="text" id="nontitratedRangeHigh" name="nontitratedRangeHigh" size="3" value="10" />
-                                -->
-                <select name="nontitratedRange" class="nontitratedRange" multiple="multiple">
-                                    <option >1</option>
-                                    <option >2</option>
-                                    <option >3</option>
-                                    <option >4</option>
-                                    <option >5</option>
-                                    <option >6</option>
-                                    <option >7</option>
-                                    <option >8</option>
-                                    <option >9</option>
-                                    <option >10</option>
-                                </select>
+
+                <label><input type="checkbox" name="nontitratedRange1" checked="checked" data-val="1" />1</label><br />
+                <label><input type="checkbox" name="nontitratedRange2" checked="checked" data-val="2" />2</label><br />
+                <label><input type="checkbox" name="nontitratedRange3" checked="checked" data-val="3" />3</label><br />
+                <label><input type="checkbox" name="nontitratedRange4" checked="checked" data-val="4" />4</label><br />
+                <label><input type="checkbox" name="nontitratedRange5" checked="checked" data-val="5" />5</label><br />
+                <label><input type="checkbox" name="nontitratedRange6" checked = "checked" data-val="6" />6</label><br />
+                <label><input type="checkbox" name="nontitratedRange7" data-val="7" />7</label><br />
+                <label><input type="checkbox" name="nontitratedRange8" data-val="8" />8</label><br />
+                <label><input type="checkbox" name="nontitratedRange9" data-val="9" />9</label><br />
+                <label><input type="checkbox" name="nontitratedRange10" data-val="10" />10</label><br />
               </div>
             </fieldset>
           </div>
@@ -73,25 +76,24 @@
 
               <label>Other: </label><input id="otherLanguageSpoken" name="otherLanguageSpoken" type="text" />
             </div>
-          </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label for="languageOfTrial">Language used for this trial:</label>
+        <div class="row">
+          <div class="col-md-3">
+            <label for="languageOfSession">Language used for this session:</label>
           </div>
           <div class="col-md-9">
-            <select size="4" name="languageOfTrial" onchange="if(this.value=='Other') document.getElementById('otherLanguageOfSession').style.display='block';">
-                            <option selected="selected">English</option>
-                            <option>French</option>
-                            <option>Spanish</option>
-                            <option>Mandarin</option>
-                            <option>Japanese</option>
-                            <option>German</option>
-                            <option>Italian</option>
-                            <option value="Other">Other (please enter)</option>
-                        </select>
-            <input id="otherLanguageOfSession" name="otherLanguageOfSession" style="display: none;" type="text" />
+            <div id="languageOfSession" data-role="collapsible">
+              <h2>Touch to choose: </h2>
 
-          </div>
+              <label><input type="checkbox" name="languageOfSession" checked="checked" data-val="English" />English</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="French" />French</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="Spanish" />Spanish</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="Mandarin" />Mandarin</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="Japanese" />Japanese</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="German" />German</label>
+              <label><input type="checkbox" name="languageOfSession" data-val="Italian" />Italian</label>
+              <label><input type="checkbox" name="languageOfSession" id="languageOfSessionOther" data-val="Other" />Other</label>
+              <label>Other: </label><input id="otherLanguageOfSession" name="otherLanguageOfSession" type="text" onfocus="$('#languageOfSessionOther').prop('checked', true).change(); $('input[name=languageOfSession]').checkboxradio('refresh')" />
+            </div>
 
         </div>
         <div class="row">
@@ -126,11 +128,11 @@
         </div>
 
 
-        <div class="row" id="customFields">
-        </div>
+      <!--   <div class="row" id="customFields">
+        </div> -->
 
 
-        <div style="border: 1px solid #eeeeee;">
+        <!-- <div style="border: 1px solid #eeeeee;">
           <h3>Create extra test data fields</h3>
 
           <div class="row">
@@ -150,7 +152,7 @@
             </div>
             <div class="col-md-12">
               <input type="button" value="Add this custom field" id="bt_addCustom" />
-            </div>
+            </div> -->
 
           </div>
         </div>
